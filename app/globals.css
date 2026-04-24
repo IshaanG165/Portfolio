@@ -1,0 +1,165 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --space-navy: #0A0F1E;
+  --cyber-cyan: #00D4FF;
+  --warm-white: #F0F0F0;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  background-color: #0A0F1E;
+  background-image:
+    radial-gradient(ellipse at 15% 40%, rgba(0, 212, 255, 0.06) 0%, transparent 55%),
+    radial-gradient(ellipse at 85% 15%, rgba(0, 212, 255, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 90%, rgba(0, 212, 255, 0.03) 0%, transparent 60%);
+  color: #F0F0F0;
+  font-family: var(--font-dm-sans), sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A0F1E;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 212, 255, 0.4);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 212, 255, 0.7);
+}
+
+::selection {
+  background: rgba(0, 212, 255, 0.25);
+  color: #F0F0F0;
+}
+
+@layer utilities {
+  .glass {
+    background: rgba(255, 255, 255, 0.04);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .glass-hover {
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .glass-hover:hover {
+    border-color: rgba(0, 212, 255, 0.3);
+    box-shadow: 0 0 30px rgba(0, 212, 255, 0.08);
+  }
+
+  .text-gradient {
+    background: linear-gradient(135deg, #00D4FF 0%, #7DF9FF 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .text-gradient-gold {
+    background: linear-gradient(135deg, #FCD34D 0%, #F59E0B 60%, #FCD34D 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.4), 0 0 40px rgba(0, 212, 255, 0.2);
+  }
+
+  .glow-amber {
+    box-shadow: 0 0 24px rgba(251, 191, 36, 0.2), 0 0 48px rgba(251, 191, 36, 0.08);
+  }
+}
+
+/* Shimmer sweep animation for hero name */
+@keyframes shimmer-sweep {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer-once {
+  background: linear-gradient(
+    105deg,
+    #00D4FF 0%,
+    #7DF9FF 30%,
+    #ffffff 50%,
+    #7DF9FF 70%,
+    #00D4FF 100%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer-sweep 1.6s ease-in-out 1.2s 1 forwards;
+}
+
+/* Ticker marquee */
+@keyframes ticker-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-left 28s linear infinite;
+}
+
+.ticker-track:hover {
+  animation-play-state: paused;
+}
+
+/* Pulse ring for award badge */
+@keyframes pulse-ring {
+  0% { transform: scale(1); opacity: 0.6; }
+  70% { transform: scale(1.15); opacity: 0; }
+  100% { transform: scale(1.15); opacity: 0; }
+}
+
+.pulse-ring::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: inherit;
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  animation: pulse-ring 2.5s ease-out infinite;
+}
+
+/* Award card ambient glow */
+@keyframes ambient-glow {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.award-glow {
+  animation: ambient-glow 3s ease-in-out infinite;
+}
+
+/* Metric card number pop */
+@keyframes number-pop {
+  0% { transform: scale(0.8); opacity: 0; }
+  60% { transform: scale(1.05); }
+  100% { transform: scale(1); opacity: 1; }
+}
