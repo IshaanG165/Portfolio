@@ -61,7 +61,7 @@ export function ParallaxComponent() {
             left: 0,
             right: 0,
             height: '18%',
-            background: 'linear-gradient(to bottom, #0A0F1E, transparent)',
+            background: 'linear-gradient(to bottom, #050A0E, transparent)',
             zIndex: 20,
             pointerEvents: 'none',
           }}
@@ -75,7 +75,7 @@ export function ParallaxComponent() {
             left: 0,
             right: 0,
             height: '22%',
-            background: 'linear-gradient(to top, #0A0F1E, transparent)',
+            background: 'linear-gradient(to top, #050A0E, transparent)',
             zIndex: 20,
             pointerEvents: 'none',
           }}

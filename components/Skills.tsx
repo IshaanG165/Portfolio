@@ -39,8 +39,8 @@ export default function Skills() {
           <p className="font-dm-sans text-[#00D4FF] text-xs tracking-[0.3em] uppercase mb-4 font-medium">
             04 — Skills
           </p>
-          <h2 className="font-syne text-4xl md:text-5xl lg:text-6xl font-bold text-[#F0F0F0]">
-            What I Know
+          <h2 className="font-syne text-4xl md:text-5xl lg:text-6xl font-bold text-[#EDEDED]">
+            The Stack
           </h2>
         </motion.div>
 

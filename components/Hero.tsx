@@ -6,10 +6,10 @@ import ParticleCanvas from './ParticleCanvas'
 import { useTypewriter } from '@/hooks/useTypewriter'
 
 const TYPEWRITER_STRINGS = [
-  'Math Enthusiast',
+  'Dalyell Scholar',
   'Hackathon Winner',
+  'Math Enthusiast',
   'Builder',
-  'CS @ University of Sydney',
 ]
 
 const ACHIEVEMENT_CHIPS = [
@@ -57,8 +57,8 @@ export default function Hero() {
       <ParticleCanvas />
 
       {/* Layered gradients for depth */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#0A0F1E]/10 via-transparent to-[#0A0F1E] pointer-events-none" />
-      <div className="absolute inset-0 bg-gradient-to-r from-[#0A0F1E]/40 via-transparent to-[#0A0F1E]/40 pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-[#050A0E]/10 via-transparent to-[#050A0E] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-r from-[#050A0E]/40 via-transparent to-[#050A0E]/40 pointer-events-none" />
 
       {/* Ambient glow under name */}
       <div
@@ -128,7 +128,7 @@ export default function Hero() {
             onClick={() => scrollTo('projects')}
             onMouseMove={(e) => applyMagnetic(e, primaryRef)}
             onMouseLeave={() => resetMagnetic(primaryRef)}
-            className="group relative px-8 py-3.5 rounded-xl bg-[#00D4FF] text-[#0A0F1E] font-dm-sans font-semibold text-sm tracking-wide overflow-hidden hover:shadow-[0_0_40px_rgba(0,212,255,0.55)] transition-shadow duration-300 min-h-[44px]"
+            className="group relative px-8 py-3.5 rounded-xl bg-[#00D4FF] text-[#050A0E] font-dm-sans font-semibold text-sm tracking-wide overflow-hidden hover:shadow-[0_0_40px_rgba(0,212,255,0.55)] transition-shadow duration-300 min-h-[44px]"
           >
             <span className="relative z-10">View My Work</span>
             <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />

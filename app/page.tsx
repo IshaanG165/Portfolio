@@ -5,15 +5,15 @@ import Projects from '@/components/Projects'
 import Experience from '@/components/Experience'
 import Skills from '@/components/Skills'
 import Contact from '@/components/Contact'
-import CursorGlow from '@/components/CursorGlow'
-import AuroraBackground from '@/components/AuroraBackground'
+import CustomCursor from '@/components/CustomCursor'
+import FlowFieldCanvas from '@/components/FlowFieldCanvas'
 import { ParallaxComponent } from '@/components/ui/parallax-scrolling'
 
 export default function Home() {
   return (
     <main className="relative overflow-x-hidden">
-      <AuroraBackground />
-      <CursorGlow />
+      <FlowFieldCanvas />
+      <CustomCursor />
       <Navbar />
       <Hero />
       <About />

@@ -42,12 +42,12 @@ function StatCard({ value, label, sublabel, isNumber, prefix = '', started }: St
 
   return (
     <div className="glass glass-hover rounded-2xl p-5 md:p-6 h-full flex flex-col justify-between min-h-[130px]">
-      <p className="font-syne text-3xl md:text-4xl font-bold text-gradient leading-none mb-3">
+      <p className="font-mono text-3xl md:text-4xl font-bold text-gradient leading-none mb-3 tabular-nums">
         {isNumber ? `${prefix}${count}` : `${prefix}${value}`}
       </p>
       <div>
-        <p className="font-dm-sans text-sm text-[#F0F0F0]/85 font-medium leading-snug">{label}</p>
-        <p className="font-dm-sans text-xs text-[#F0F0F0]/40 mt-0.5 leading-relaxed">{sublabel}</p>
+        <p className="font-dm-sans text-sm text-[#EDEDED]/85 font-medium leading-snug">{label}</p>
+        <p className="font-mono text-[11px] text-[#EDEDED]/35 mt-1 leading-relaxed tracking-tight">{sublabel}</p>
       </div>
     </div>
   )
@@ -112,16 +112,17 @@ export default function About() {
           <div className="grid md:grid-cols-2 gap-12 lg:gap-20 items-start mb-8">
             {/* Left: Bio */}
             <div>
-              <p className="font-dm-sans text-[#F0F0F0]/70 text-lg leading-relaxed mb-6">
+              <p className="font-dm-sans text-[#EDEDED]/70 text-lg leading-relaxed mb-6">
                 I&apos;m Ishaan — studying{' '}
-                <span className="text-[#F0F0F0] font-medium">Bachelor of Advanced Computing (Computer Science)</span>{' '}
-                at the University of Sydney. I build things that matter: fast, elegant software at the
-                intersection of systems and product.
+                <span className="text-[#EDEDED] font-medium">Bachelor of Advanced Computing (Computer Science)</span>{' '}
+                at the University of Sydney, ranked in the{' '}
+                <span className="text-[#00D4FF] font-medium">top 2.6% of my cohort</span>{' '}
+                and awarded the UG High Honour Roll — the highest distinction given by the School of Computer Science.
               </p>
-              <p className="font-dm-sans text-[#F0F0F0]/70 text-lg leading-relaxed mb-10">
-                From training offline-first neural networks on microcontrollers to shipping
-                real-time campus infrastructure, I care deeply about the craft of engineering —
-                and the impact it enables. I move fast, think in systems, and ship.
+              <p className="font-dm-sans text-[#EDEDED]/70 text-lg leading-relaxed mb-10">
+                I build fast, precise software: from offline-first neural networks running on
+                microcontrollers to real-time infrastructure handling live data at sub-200ms latency.
+                I think in systems, ship with discipline, and close the gap between research and production.
               </p>
 
               <div className="flex flex-wrap gap-3">
