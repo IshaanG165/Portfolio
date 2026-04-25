@@ -63,7 +63,7 @@ const STATS: StatCardProps[] = [
   },
   {
     value: 21,
-    label: 'OOP Rank',
+    label: 'INFO1113 · OOP',
     sublabel: '21st / 822 students · top 2.6%',
     isNumber: true,
     prefix: '#',
@@ -71,7 +71,7 @@ const STATS: StatCardProps[] = [
   },
   {
     value: 55,
-    label: 'Intro to Programming',
+    label: 'INFO1110 · Intro to Programming',
     sublabel: '55th / 1200+ students · top 4.6%',
     isNumber: true,
     prefix: '#',
@@ -80,7 +80,7 @@ const STATS: StatCardProps[] = [
   {
     value: '1st',
     label: 'Hackathon',
-    sublabel: 'Canva × USYD CommStem 2024',
+    sublabel: 'Canva × USYD CommStem 2025',
     isNumber: false,
     started: false,
   },
@@ -113,9 +113,9 @@ export default function About() {
             {/* Left: Bio */}
             <div>
               <p className="font-dm-sans text-[#F0F0F0]/70 text-lg leading-relaxed mb-6">
-                I&apos;m Ishaan — a second-year Computer Science student at the{' '}
-                <span className="text-[#F0F0F0] font-medium">University of Sydney</span>{' '}
-                (Advanced Computing). I build things that matter: fast, elegant software at the
+                I&apos;m Ishaan — studying{' '}
+                <span className="text-[#F0F0F0] font-medium">Bachelor of Advanced Computing (Computer Science)</span>{' '}
+                at the University of Sydney. I build things that matter: fast, elegant software at the
                 intersection of systems and product.
               </p>
               <p className="font-dm-sans text-[#F0F0F0]/70 text-lg leading-relaxed mb-10">

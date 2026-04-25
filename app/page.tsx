@@ -6,6 +6,7 @@ import Experience from '@/components/Experience'
 import Skills from '@/components/Skills'
 import Contact from '@/components/Contact'
 import CursorGlow from '@/components/CursorGlow'
+import { ParallaxComponent } from '@/components/ui/parallax-scrolling'
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
       <Navbar />
       <Hero />
       <About />
+      <ParallaxComponent />
       <Projects />
       <Experience />
       <Skills />

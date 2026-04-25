@@ -94,7 +94,7 @@ function SportScoutCard() {
       >
         <span className="text-lg" aria-hidden="true">🏆</span>
         <span className="font-dm-sans text-sm font-semibold text-amber-300">
-          1st Place — Canva × USYD CommStem Hackathon 2024
+          1st Place — Canva × USYD CommStem Hackathon 2025
         </span>
         <span
           className="ml-auto font-dm-sans text-[10px] tracking-widest uppercase px-2.5 py-1 rounded-full"
@@ -140,7 +140,7 @@ function SportScoutCard() {
                 >
                   {hovered
                     ? 'Detects 8 crop diseases using a quantised ResNet CNN (INT8) with under 150ms inference. Fused with real-time ESP32 Bluetooth sensor data — soil humidity, temperature, and light. Built for farmers with zero internet connectivity. Competed against 200+ teams to take first place.'
-                    : 'Offline-first Android app for real-time crop disease detection. No internet required — built for the field, not the lab. Won 1st place competing against 200+ teams at the Canva × USYD CommStem Hackathon.'}
+                    : 'Offline-first Android app for real-time crop disease detection. No internet required — built for the field, not the lab. Won 1st place competing against 200+ teams at the Canva × USYD CommStem Hackathon 2025.'}
                 </motion.p>
               </AnimatePresence>
             </div>
@@ -272,18 +272,15 @@ function QuickFixCard() {
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-24 md:py-36 px-6">
+    <section id="projects" className="pt-4 pb-24 md:pb-36 px-6">
       <div className="max-w-7xl mx-auto">
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-16 md:mb-20"
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="mb-12 md:mb-16"
         >
-          <p className="font-dm-sans text-[#00D4FF] text-xs tracking-[0.3em] uppercase mb-4 font-medium">
-            02 — Projects
-          </p>
           <h2 className="font-syne text-4xl md:text-5xl lg:text-6xl font-bold text-[#F0F0F0]">
             What I&apos;ve Built
           </h2>

@@ -6,17 +6,17 @@ import { useTypewriter } from '@/hooks/useTypewriter'
 
 const TYPEWRITER_STRINGS = [
   'Software Engineer',
-  'Hackathon Champion',
+  'Hackathon Winner',
   'Builder',
   'CS @ University of Sydney',
 ]
 
 const ACHIEVEMENT_CHIPS = [
   { icon: '🏆', text: 'Hackathon Winner', sub: 'Canva × USYD' },
-  { icon: '📊', text: 'Top 2.6% OOP', sub: '21st / 822' },
+  { icon: '📊', text: 'Top 2.6% INFO1113', sub: '21st / 822' },
   { icon: '🎓', text: 'Dalyell Scholar', sub: 'USYD' },
   { icon: '⭐', text: 'UG Honour Roll', sub: 'CS Award 2025' },
-  { icon: '📈', text: 'Top 4.6%', sub: 'Intro to CS' },
+  { icon: '📈', text: 'Top 4.6% INFO1110', sub: '55th / 1200+' },
 ]
 
 export default function Hero() {
