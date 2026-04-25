@@ -1,5 +1,6 @@
 'use client'
 
+import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import ParticleCanvas from './ParticleCanvas'
 import { useTypewriter } from '@/hooks/useTypewriter'
@@ -21,9 +22,31 @@ const ACHIEVEMENT_CHIPS = [
 
 export default function Hero() {
   const displayText = useTypewriter(TYPEWRITER_STRINGS)
+  const primaryRef = useRef<HTMLButtonElement>(null)
+  const secondaryRef = useRef<HTMLButtonElement>(null)
 
   const scrollTo = (id: string) => {
     document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  }
+
+  const applyMagnetic = (
+    e: React.MouseEvent<HTMLButtonElement>,
+    ref: React.RefObject<HTMLButtonElement>
+  ) => {
+    const el = ref.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    const x = ((e.clientX - r.left) / r.width - 0.5) * 20
+    const y = ((e.clientY - r.top) / r.height - 0.5) * 12
+    el.style.transition = 'transform 0.1s ease'
+    el.style.transform = `translate(${x}px, ${y}px)`
+  }
+
+  const resetMagnetic = (ref: React.RefObject<HTMLButtonElement>) => {
+    const el = ref.current
+    if (!el) return
+    el.style.transition = 'transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)'
+    el.style.transform = 'translate(0px, 0px)'
   }
 
   return (
@@ -101,16 +124,22 @@ export default function Hero() {
           className="flex flex-col sm:flex-row gap-4 justify-center"
         >
           <button
+            ref={primaryRef}
             onClick={() => scrollTo('projects')}
-            className="group relative px-8 py-3.5 rounded-xl bg-[#00D4FF] text-[#0A0F1E] font-dm-sans font-semibold text-sm tracking-wide overflow-hidden transition-all duration-300 hover:shadow-[0_0_40px_rgba(0,212,255,0.5)] hover:scale-[1.02] min-h-[44px]"
+            onMouseMove={(e) => applyMagnetic(e, primaryRef)}
+            onMouseLeave={() => resetMagnetic(primaryRef)}
+            className="group relative px-8 py-3.5 rounded-xl bg-[#00D4FF] text-[#0A0F1E] font-dm-sans font-semibold text-sm tracking-wide overflow-hidden hover:shadow-[0_0_40px_rgba(0,212,255,0.55)] transition-shadow duration-300 min-h-[44px]"
           >
             <span className="relative z-10">View My Work</span>
             <div className="absolute inset-0 bg-white/0 group-hover:bg-white/10 transition-colors duration-300" />
           </button>
 
           <button
+            ref={secondaryRef}
             onClick={() => scrollTo('contact')}
-            className="px-8 py-3.5 rounded-xl border border-[#00D4FF]/35 text-[#F0F0F0]/85 font-dm-sans font-medium text-sm tracking-wide hover:border-[#00D4FF]/70 hover:text-[#00D4FF] hover:shadow-[0_0_20px_rgba(0,212,255,0.15)] transition-all duration-300 backdrop-blur-sm min-h-[44px]"
+            onMouseMove={(e) => applyMagnetic(e, secondaryRef)}
+            onMouseLeave={() => resetMagnetic(secondaryRef)}
+            className="px-8 py-3.5 rounded-xl border border-[#00D4FF]/35 text-[#F0F0F0]/85 font-dm-sans font-medium text-sm tracking-wide hover:border-[#00D4FF]/70 hover:text-[#00D4FF] hover:shadow-[0_0_20px_rgba(0,212,255,0.2)] transition-colors duration-300 backdrop-blur-sm min-h-[44px]"
           >
             Get In Touch
           </button>

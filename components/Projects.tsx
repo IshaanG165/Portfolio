@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 const GitHubIcon = () => (
@@ -25,12 +25,8 @@ function MetricChip({ value, label, delay = 0, gold = false }: MetricChipProps) 
       transition={{ delay, duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
       className="flex flex-col items-center justify-center rounded-2xl p-4 md:p-5 text-center min-h-[90px]"
       style={{
-        background: gold
-          ? 'rgba(251,191,36,0.06)'
-          : 'rgba(0,212,255,0.05)',
-        border: gold
-          ? '1px solid rgba(251,191,36,0.2)'
-          : '1px solid rgba(0,212,255,0.15)',
+        background: gold ? 'rgba(251,191,36,0.06)' : 'rgba(0,212,255,0.05)',
+        border: gold ? '1px solid rgba(251,191,36,0.2)' : '1px solid rgba(0,212,255,0.15)',
       }}
     >
       <span
@@ -47,11 +43,7 @@ function MetricChip({ value, label, delay = 0, gold = false }: MetricChipProps) 
         }
         data-gradient={!gold ? 'cyan' : undefined}
       >
-        {!gold ? (
-          <span className="text-gradient">{value}</span>
-        ) : (
-          value
-        )}
+        {!gold ? <span className="text-gradient">{value}</span> : value}
       </span>
       <span className="font-dm-sans text-[11px] text-[#F0F0F0]/45 leading-tight px-1">{label}</span>
     </motion.div>
@@ -61,6 +53,22 @@ function MetricChip({ value, label, delay = 0, gold = false }: MetricChipProps) 
 /* ── Spore Scout — Featured Full-Width Card ── */
 function SportScoutCard() {
   const [hovered, setHovered] = useState(false)
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [spotlight, setSpotlight] = useState({ x: 50, y: 50 })
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const nx = (e.clientX - rect.left) / rect.width
+    const ny = (e.clientY - rect.top) / rect.height
+    setTilt({ x: (ny - 0.5) * -11, y: (nx - 0.5) * 11 })
+    setSpotlight({ x: nx * 100, y: ny * 100 })
+  }
+
+  const handleMouseLeave = () => {
+    setHovered(false)
+    setTilt({ x: 0, y: 0 })
+  }
 
   return (
     <motion.div
@@ -68,108 +76,130 @@ function SportScoutCard() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94] }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-      className="relative overflow-hidden rounded-2xl"
-      style={{
-        background: 'rgba(255,255,255,0.04)',
-        backdropFilter: 'blur(12px)',
-        border: hovered
-          ? '1px solid rgba(251,191,36,0.4)'
-          : '1px solid rgba(251,191,36,0.18)',
-        boxShadow: hovered
-          ? '0 0 60px rgba(251,191,36,0.12), 0 24px 48px rgba(0,0,0,0.35)'
-          : '0 4px 24px rgba(0,0,0,0.25)',
-        transition: 'border-color 0.35s ease, box-shadow 0.35s ease',
-      }}
     >
-      {/* Top winner banner */}
       <div
-        className="flex items-center gap-3 px-7 md:px-9 py-3.5 border-b"
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onMouseEnter={() => setHovered(true)}
+        className="relative overflow-hidden rounded-2xl"
         style={{
-          background:
-            'linear-gradient(90deg, rgba(251,191,36,0.12) 0%, rgba(245,158,11,0.06) 60%, transparent 100%)',
-          borderColor: 'rgba(251,191,36,0.14)',
+          background: 'rgba(255,255,255,0.04)',
+          backdropFilter: 'blur(12px)',
+          border: hovered ? '1px solid rgba(251,191,36,0.45)' : '1px solid rgba(251,191,36,0.18)',
+          boxShadow: hovered
+            ? '0 0 70px rgba(251,191,36,0.14), 0 24px 48px rgba(0,0,0,0.4)'
+            : '0 4px 24px rgba(0,0,0,0.25)',
+          transform: `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+          transition: hovered
+            ? 'border-color 0.25s ease, box-shadow 0.25s ease'
+            : 'transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.25s ease, box-shadow 0.25s ease',
+          willChange: 'transform',
         }}
       >
-        <span className="text-lg" aria-hidden="true">🏆</span>
-        <span className="font-dm-sans text-sm font-semibold text-amber-300">
-          1st Place — Canva × USYD CommStem Hackathon 2025
-        </span>
-        <span
-          className="ml-auto font-dm-sans text-[10px] tracking-widest uppercase px-2.5 py-1 rounded-full"
+        {/* Mouse spotlight */}
+        <div
           style={{
-            color: 'rgba(251,191,36,0.8)',
-            border: '1px solid rgba(251,191,36,0.2)',
-            background: 'rgba(251,191,36,0.07)',
+            position: 'absolute',
+            inset: 0,
+            borderRadius: 'inherit',
+            background: `radial-gradient(circle at ${spotlight.x}% ${spotlight.y}%, rgba(251,191,36,0.09) 0%, transparent 55%)`,
+            opacity: hovered ? 1 : 0,
+            transition: 'opacity 0.35s ease',
+            pointerEvents: 'none',
+            zIndex: 0,
+          }}
+        />
+
+        {/* Top winner banner */}
+        <div
+          className="relative flex items-center gap-3 px-7 md:px-9 py-3.5 border-b"
+          style={{
+            background:
+              'linear-gradient(90deg, rgba(251,191,36,0.12) 0%, rgba(245,158,11,0.06) 60%, transparent 100%)',
+            borderColor: 'rgba(251,191,36,0.14)',
+            zIndex: 1,
           }}
         >
-          Featured Project
-        </span>
-      </div>
+          <span className="text-lg" aria-hidden="true">🏆</span>
+          <span className="font-dm-sans text-sm font-semibold text-amber-300">
+            1st Place — Canva × USYD CommStem Hackathon 2025
+          </span>
+          <span
+            className="ml-auto font-dm-sans text-[10px] tracking-widest uppercase px-2.5 py-1 rounded-full"
+            style={{
+              color: 'rgba(251,191,36,0.8)',
+              border: '1px solid rgba(251,191,36,0.2)',
+              background: 'rgba(251,191,36,0.07)',
+            }}
+          >
+            Featured Project
+          </span>
+        </div>
 
-      {/* Card body */}
-      <div className="p-7 md:p-9">
-        <div className="grid md:grid-cols-5 gap-8 md:gap-10 items-start">
-          {/* Left: Content (3/5) */}
-          <div className="md:col-span-3">
-            <h3 className="font-syne text-3xl md:text-4xl font-bold text-[#F0F0F0] mb-4 leading-tight">
-              Spore Scout
-            </h3>
+        {/* Card body */}
+        <div className="relative p-7 md:p-9" style={{ zIndex: 1 }}>
+          <div className="grid md:grid-cols-5 gap-8 md:gap-10 items-start">
+            {/* Left: Content (3/5) */}
+            <div className="md:col-span-3">
+              <h3 className="font-syne text-3xl md:text-4xl font-bold text-[#F0F0F0] mb-4 leading-tight">
+                Spore Scout
+              </h3>
 
-            <div className="flex flex-wrap gap-2 mb-5">
-              {['TensorFlow', 'Flutter', 'ESP32', 'TFLite', 'Bluetooth'].map((tag) => (
-                <span
-                  key={tag}
-                  className="text-xs font-dm-sans text-amber-300/80 bg-amber-300/[0.07] border border-amber-300/15 px-3 py-1 rounded-lg"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
+              <div className="flex flex-wrap gap-2 mb-5">
+                {['TensorFlow', 'Flutter', 'ESP32', 'TFLite', 'Bluetooth'].map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs font-dm-sans text-amber-300/80 bg-amber-300/[0.07] border border-amber-300/15 px-3 py-1 rounded-lg"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
 
-            <div className="min-h-[80px] mb-8">
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={hovered ? 'long' : 'short'}
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -4 }}
-                  transition={{ duration: 0.2 }}
-                  className="font-dm-sans text-[#F0F0F0]/65 leading-relaxed"
-                >
-                  {hovered
-                    ? 'Detects 8 crop diseases using a quantised ResNet CNN (INT8) with under 150ms inference. Fused with real-time ESP32 Bluetooth sensor data — soil humidity, temperature, and light. Built for farmers with zero internet connectivity. Competed against 200+ teams to take first place.'
-                    : 'Offline-first Android app for real-time crop disease detection. No internet required — built for the field, not the lab. Won 1st place competing against 200+ teams at the Canva × USYD CommStem Hackathon 2025.'}
-                </motion.p>
-              </AnimatePresence>
-            </div>
+              <div className="min-h-[80px] mb-8">
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={hovered ? 'long' : 'short'}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.2 }}
+                    className="font-dm-sans text-[#F0F0F0]/65 leading-relaxed"
+                  >
+                    {hovered
+                      ? 'Detects 8 crop diseases using a quantised ResNet CNN (INT8) with under 150ms inference. Fused with real-time ESP32 Bluetooth sensor data — soil humidity, temperature, and light. Built for farmers with zero internet connectivity. Competed against 200+ teams to take first place.'
+                      : 'Offline-first Android app for real-time crop disease detection. No internet required — built for the field, not the lab. Won 1st place competing against 200+ teams at the Canva × USYD CommStem Hackathon 2025.'}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
 
-            <a
-              href="https://github.com/IshaanG165"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-dm-sans text-amber-300/70 hover:text-amber-300 transition-colors duration-200 group"
-            >
-              <GitHubIcon />
-              <span>View on GitHub</span>
-              <svg
-                className="w-3 h-3 group-hover:translate-x-0.5 transition-transform duration-200"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+              <a
+                href="https://github.com/IshaanG165"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-dm-sans text-amber-300/70 hover:text-amber-300 transition-colors duration-200 group"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
-          </div>
+                <GitHubIcon />
+                <span>View on GitHub</span>
+                <svg
+                  className="w-3 h-3 group-hover:translate-x-0.5 transition-transform duration-200"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
 
-          {/* Right: Metrics (2/5) */}
-          <div className="md:col-span-2 grid grid-cols-2 gap-3">
-            <MetricChip value="8" label="Crop diseases detected" delay={0.1} />
-            <MetricChip value="<150ms" label="Model inference time" delay={0.18} />
-            <MetricChip value="INT8" label="Quantised ResNet" delay={0.26} />
-            <MetricChip value="Offline" label="No internet needed" delay={0.34} gold />
+            {/* Right: Metrics (2/5) */}
+            <div className="md:col-span-2 grid grid-cols-2 gap-3">
+              <MetricChip value="8" label="Crop diseases detected" delay={0.1} />
+              <MetricChip value="<150ms" label="Model inference time" delay={0.18} />
+              <MetricChip value="INT8" label="Quantised ResNet" delay={0.26} />
+              <MetricChip value="Offline" label="No internet needed" delay={0.34} gold />
+            </div>
           </div>
         </div>
       </div>
@@ -180,6 +210,21 @@ function SportScoutCard() {
 /* ── QuickFix QR ── */
 function QuickFixCard() {
   const [hovered, setHovered] = useState(false)
+  const [tilt, setTilt] = useState({ x: 0, y: 0 })
+  const [spotlight, setSpotlight] = useState({ x: 50, y: 50 })
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    const nx = (e.clientX - rect.left) / rect.width
+    const ny = (e.clientY - rect.top) / rect.height
+    setTilt({ x: (ny - 0.5) * -10, y: (nx - 0.5) * 10 })
+    setSpotlight({ x: nx * 100, y: ny * 100 })
+  }
+
+  const handleMouseLeave = () => {
+    setHovered(false)
+    setTilt({ x: 0, y: 0 })
+  }
 
   return (
     <motion.div
@@ -187,82 +232,102 @@ function QuickFixCard() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ delay: 0.15, duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94] }}
-      onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-      className="relative overflow-hidden rounded-2xl"
-      style={{
-        background: 'rgba(255,255,255,0.04)',
-        backdropFilter: 'blur(12px)',
-        border: hovered
-          ? '1px solid rgba(0,212,255,0.35)'
-          : '1px solid rgba(255,255,255,0.08)',
-        boxShadow: hovered
-          ? '0 0 50px rgba(0,212,255,0.1), 0 20px 40px rgba(0,0,0,0.3)'
-          : '0 4px 20px rgba(0,0,0,0.2)',
-        transition: 'border-color 0.35s ease, box-shadow 0.35s ease',
-      }}
     >
-      <div className="p-7 md:p-9">
-        <div className="grid md:grid-cols-5 gap-8 items-start">
-          {/* Left: Content (3/5) */}
-          <div className="md:col-span-3">
-            <h3 className="font-syne text-2xl md:text-3xl font-bold text-[#F0F0F0] mb-4 leading-tight">
-              QuickFix QR
-            </h3>
+      <div
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        onMouseEnter={() => setHovered(true)}
+        className="relative overflow-hidden rounded-2xl"
+        style={{
+          background: 'rgba(255,255,255,0.04)',
+          backdropFilter: 'blur(12px)',
+          border: hovered ? '1px solid rgba(0,212,255,0.4)' : '1px solid rgba(255,255,255,0.08)',
+          boxShadow: hovered
+            ? '0 0 55px rgba(0,212,255,0.12), 0 20px 40px rgba(0,0,0,0.35)'
+            : '0 4px 20px rgba(0,0,0,0.2)',
+          transform: `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
+          transition: hovered
+            ? 'border-color 0.25s ease, box-shadow 0.25s ease'
+            : 'transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.25s ease, box-shadow 0.25s ease',
+          willChange: 'transform',
+        }}
+      >
+        {/* Mouse spotlight */}
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            borderRadius: 'inherit',
+            background: `radial-gradient(circle at ${spotlight.x}% ${spotlight.y}%, rgba(0,212,255,0.07) 0%, transparent 55%)`,
+            opacity: hovered ? 1 : 0,
+            transition: 'opacity 0.35s ease',
+            pointerEvents: 'none',
+            zIndex: 0,
+          }}
+        />
 
-            <div className="flex flex-wrap gap-2 mb-5">
-              {['Next.js', 'Supabase', 'PostgreSQL', 'WebSocket', 'Leaflet.js'].map((tag) => (
-                <span
-                  key={tag}
-                  className="text-xs font-dm-sans text-[#00D4FF]/80 bg-[#00D4FF]/[0.07] border border-[#00D4FF]/15 px-3 py-1 rounded-lg"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
+        <div className="relative p-7 md:p-9" style={{ zIndex: 1 }}>
+          <div className="grid md:grid-cols-5 gap-8 items-start">
+            {/* Left: Content (3/5) */}
+            <div className="md:col-span-3">
+              <h3 className="font-syne text-2xl md:text-3xl font-bold text-[#F0F0F0] mb-4 leading-tight">
+                QuickFix QR
+              </h3>
 
-            <div className="min-h-[72px] mb-8">
-              <AnimatePresence mode="wait">
-                <motion.p
-                  key={hovered ? 'long' : 'short'}
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -4 }}
-                  transition={{ duration: 0.2 }}
-                  className="font-dm-sans text-sm text-[#F0F0F0]/60 leading-relaxed"
-                >
-                  {hovered
-                    ? 'Serverless event-driven pipeline with sub-200ms end-to-end latency. Supabase real-time subscriptions push live updates to a Leaflet.js campus map. Scan a QR code, submit a fault — it appears as a live map pin for campus operations staff instantly.'
-                    : 'Real-time campus fault-reporting platform. QR scan → live map pin in under 10 seconds. Built with serverless architecture and real-time WebSocket subscriptions.'}
-                </motion.p>
-              </AnimatePresence>
-            </div>
+              <div className="flex flex-wrap gap-2 mb-5">
+                {['Next.js', 'Supabase', 'PostgreSQL', 'WebSocket', 'Leaflet.js'].map((tag) => (
+                  <span
+                    key={tag}
+                    className="text-xs font-dm-sans text-[#00D4FF]/80 bg-[#00D4FF]/[0.07] border border-[#00D4FF]/15 px-3 py-1 rounded-lg"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
 
-            <a
-              href="https://github.com/IshaanG165"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm font-dm-sans text-[#00D4FF]/80 hover:text-[#00D4FF] transition-colors duration-200 group"
-            >
-              <GitHubIcon />
-              <span>View on GitHub</span>
-              <svg
-                className="w-3 h-3 group-hover:translate-x-0.5 transition-transform duration-200"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
+              <div className="min-h-[72px] mb-8">
+                <AnimatePresence mode="wait">
+                  <motion.p
+                    key={hovered ? 'long' : 'short'}
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -4 }}
+                    transition={{ duration: 0.2 }}
+                    className="font-dm-sans text-sm text-[#F0F0F0]/60 leading-relaxed"
+                  >
+                    {hovered
+                      ? 'Serverless event-driven pipeline with sub-200ms end-to-end latency. Supabase real-time subscriptions push live updates to a Leaflet.js campus map. Scan a QR code, submit a fault — it appears as a live map pin for campus operations staff instantly.'
+                      : 'Real-time campus fault-reporting platform. QR scan → live map pin in under 10 seconds. Built with serverless architecture and real-time WebSocket subscriptions.'}
+                  </motion.p>
+                </AnimatePresence>
+              </div>
+
+              <a
+                href="https://github.com/IshaanG165"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-sm font-dm-sans text-[#00D4FF]/80 hover:text-[#00D4FF] transition-colors duration-200 group"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
-          </div>
+                <GitHubIcon />
+                <span>View on GitHub</span>
+                <svg
+                  className="w-3 h-3 group-hover:translate-x-0.5 transition-transform duration-200"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </a>
+            </div>
 
-          {/* Right: Metrics (2/5) */}
-          <div className="md:col-span-2 grid grid-cols-2 gap-3">
-            <MetricChip value="<10s" label="QR scan to live map" delay={0.1} />
-            <MetricChip value="<200ms" label="End-to-end latency" delay={0.18} />
-            <MetricChip value="Live" label="Real-time updates" delay={0.26} />
-            <MetricChip value="0" label="Page reloads needed" delay={0.34} />
+            {/* Right: Metrics (2/5) */}
+            <div className="md:col-span-2 grid grid-cols-2 gap-3">
+              <MetricChip value="<10s" label="QR scan to live map" delay={0.1} />
+              <MetricChip value="<200ms" label="End-to-end latency" delay={0.18} />
+              <MetricChip value="Live" label="Real-time updates" delay={0.26} />
+              <MetricChip value="0" label="Page reloads needed" delay={0.34} />
+            </div>
           </div>
         </div>
       </div>

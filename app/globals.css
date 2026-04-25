@@ -21,10 +21,6 @@ html {
 
 body {
   background-color: #0A0F1E;
-  background-image:
-    radial-gradient(ellipse at 15% 40%, rgba(0, 212, 255, 0.06) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 15%, rgba(0, 212, 255, 0.04) 0%, transparent 50%),
-    radial-gradient(ellipse at 50% 90%, rgba(0, 212, 255, 0.03) 0%, transparent 60%);
   color: #F0F0F0;
   font-family: var(--font-dm-sans), sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -162,4 +158,93 @@ body {
   0% { transform: scale(0.8); opacity: 0; }
   60% { transform: scale(1.05); }
   100% { transform: scale(1); opacity: 1; }
+}
+
+/* ── Aurora animated background ── */
+.aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform;
+}
+
+.aurora-orb--1 {
+  width: 80vw;
+  height: 80vw;
+  top: -28vh;
+  left: -22vw;
+  background: radial-gradient(
+    circle at center,
+    rgba(0, 212, 255, 0.15) 0%,
+    rgba(0, 212, 255, 0.06) 40%,
+    transparent 70%
+  );
+  filter: blur(80px);
+  animation: aurora-drift-1 26s ease-in-out infinite;
+}
+
+.aurora-orb--2 {
+  width: 72vw;
+  height: 72vw;
+  bottom: -22vh;
+  right: -18vw;
+  background: radial-gradient(
+    circle at center,
+    rgba(139, 92, 246, 0.13) 0%,
+    rgba(109, 40, 217, 0.05) 45%,
+    transparent 70%
+  );
+  filter: blur(90px);
+  animation: aurora-drift-2 21s ease-in-out infinite;
+}
+
+.aurora-orb--3 {
+  width: 60vw;
+  height: 60vw;
+  top: 40vh;
+  left: 22vw;
+  background: radial-gradient(
+    circle at center,
+    rgba(67, 56, 202, 0.1) 0%,
+    transparent 70%
+  );
+  filter: blur(110px);
+  animation: aurora-drift-3 32s ease-in-out infinite;
+}
+
+.aurora-orb--4 {
+  width: 46vw;
+  height: 46vw;
+  top: -6vh;
+  right: 2vw;
+  background: radial-gradient(
+    circle at center,
+    rgba(6, 182, 212, 0.09) 0%,
+    transparent 70%
+  );
+  filter: blur(70px);
+  animation: aurora-drift-4 18s ease-in-out infinite;
+}
+
+@keyframes aurora-drift-1 {
+  0%,  100% { transform: translate(0%, 0%) scale(1); }
+  25%       { transform: translate(10vw, 9vh) scale(1.07); }
+  50%       { transform: translate(4vw, 22vh) scale(0.95); }
+  75%       { transform: translate(-5vw, 11vh) scale(1.04); }
+}
+
+@keyframes aurora-drift-2 {
+  0%,  100% { transform: translate(0%, 0%) scale(1); }
+  33%       { transform: translate(-13vw, -9vh) scale(1.1); }
+  66%       { transform: translate(-6vw, -20vh) scale(0.92); }
+}
+
+@keyframes aurora-drift-3 {
+  0%,  100% { transform: translate(0%, 0%) scale(1); }
+  40%       { transform: translate(16vw, -14vh) scale(1.06); }
+  80%       { transform: translate(4vw, 7vh) scale(0.97); }
+}
+
+@keyframes aurora-drift-4 {
+  0%,  100% { transform: translate(0%, 0%) scale(1) rotate(0deg); }
+  50%       { transform: translate(-9vw, 16vh) scale(1.11) rotate(18deg); }
 }
