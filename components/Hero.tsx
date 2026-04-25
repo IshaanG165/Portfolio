@@ -99,7 +99,7 @@ export default function Hero() {
           className="font-syne font-bold leading-[0.93] mb-7"
           style={{ fontSize: 'clamp(3.2rem, 10vw, 7.5rem)' }}
         >
-          <span className="text-[#F0F0F0]">Ishaan </span>
+          <span className="text-[#EDEDED]">Ishaan </span>
           <span className="shimmer-once">Gulati</span>
         </motion.h1>
 
@@ -110,7 +110,7 @@ export default function Hero() {
           transition={{ delay: 0.75, duration: 0.8 }}
           className="h-10 md:h-12 flex items-center justify-center mb-10"
         >
-          <p className="font-dm-sans text-lg md:text-2xl text-[#F0F0F0]/60 font-light">
+          <p className="font-dm-sans text-lg md:text-2xl text-[#EDEDED]/60 font-light">
             {displayText}
             <span className="inline-block w-[2px] h-5 md:h-6 bg-[#00D4FF] ml-1 animate-cursor-blink align-middle" />
           </p>
@@ -139,7 +139,7 @@ export default function Hero() {
             onClick={() => scrollTo('contact')}
             onMouseMove={(e) => applyMagnetic(e, secondaryRef)}
             onMouseLeave={() => resetMagnetic(secondaryRef)}
-            className="px-8 py-3.5 rounded-xl border border-[#00D4FF]/35 text-[#F0F0F0]/85 font-dm-sans font-medium text-sm tracking-wide hover:border-[#00D4FF]/70 hover:text-[#00D4FF] hover:shadow-[0_0_20px_rgba(0,212,255,0.2)] transition-colors duration-300 backdrop-blur-sm min-h-[44px]"
+            className="px-8 py-3.5 rounded-xl border border-[#00D4FF]/35 text-[#EDEDED]/85 font-dm-sans font-medium text-sm tracking-wide hover:border-[#00D4FF]/70 hover:text-[#00D4FF] hover:shadow-[0_0_20px_rgba(0,212,255,0.2)] transition-colors duration-300 backdrop-blur-sm min-h-[44px]"
           >
             Get In Touch
           </button>
@@ -157,12 +157,12 @@ export default function Hero() {
             {[...ACHIEVEMENT_CHIPS, ...ACHIEVEMENT_CHIPS].map((chip, i) => (
               <span
                 key={i}
-                className="inline-flex items-center gap-2 px-4 py-2 mx-1.5 rounded-full border border-white/[0.09] bg-white/[0.03] backdrop-blur-sm text-xs font-dm-sans text-[#F0F0F0]/45 whitespace-nowrap select-none"
+                className="inline-flex items-center gap-2 px-4 py-2 mx-1.5 rounded-full border border-white/[0.09] bg-white/[0.03] backdrop-blur-sm text-xs font-dm-sans text-[#EDEDED]/45 whitespace-nowrap select-none"
               >
                 <span className="text-sm">{chip.icon}</span>
                 <span>{chip.text}</span>
-                <span className="text-[#F0F0F0]/25">·</span>
-                <span className="text-[#F0F0F0]/30">{chip.sub}</span>
+                <span className="text-[#EDEDED]/25">·</span>
+                <span className="text-[#EDEDED]/30">{chip.sub}</span>
               </span>
             ))}
           </div>
@@ -176,10 +176,10 @@ export default function Hero() {
         transition={{ delay: 2.2, duration: 1.2 }}
         className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-3"
       >
-        <span className="font-dm-sans text-[10px] text-[#F0F0F0]/20 tracking-[0.25em] uppercase">
+        <span className="font-dm-sans text-[10px] text-[#EDEDED]/20 tracking-[0.25em] uppercase">
           scroll
         </span>
-        <div className="w-6 h-10 rounded-full border border-[#F0F0F0]/12 flex items-start justify-center pt-2.5">
+        <div className="w-6 h-10 rounded-full border border-[#EDEDED]/12 flex items-start justify-center pt-2.5">
           <motion.div
             animate={{ y: [0, 12, 0], opacity: [0.7, 0, 0.7] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: 'easeInOut' }}

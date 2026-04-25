@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 :root {
-  --space-navy: #0A0F1E;
+  --space-navy: #050A0E;
   --cyber-cyan: #00D4FF;
-  --warm-white: #F0F0F0;
+  --warm-white: #EDEDED;
 }
 
 * {
@@ -39,7 +39,7 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #0A0F1E;
+  background: #050A0E;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -53,7 +53,7 @@ body {
 
 ::selection {
   background: rgba(0, 212, 255, 0.25);
-  color: #F0F0F0;
+  color: #EDEDED;
 }
 
 @layer utilities {

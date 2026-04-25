@@ -167,7 +167,7 @@ export default function Experience() {
                     <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
                       <div>
                         <div className="flex items-center gap-2.5 flex-wrap">
-                          <h3 className="font-syne text-lg md:text-xl font-semibold text-[#F0F0F0] leading-snug">
+                          <h3 className="font-syne text-lg md:text-xl font-semibold text-[#EDEDED] leading-snug">
                             {exp.title}
                           </h3>
                           {isTutor && (
@@ -182,20 +182,20 @@ export default function Experience() {
                           </p>
                           {exp.location && (
                             <>
-                              <span className="text-[#F0F0F0]/20 text-xs">·</span>
-                              <p className="font-dm-sans text-xs text-[#F0F0F0]/35">{exp.location}</p>
+                              <span className="text-[#EDEDED]/20 text-xs">·</span>
+                              <p className="font-dm-sans text-xs text-[#EDEDED]/35">{exp.location}</p>
                             </>
                           )}
                         </div>
                       </div>
 
-                      <span className="flex-shrink-0 font-dm-sans text-xs text-[#F0F0F0]/35 bg-white/[0.04] border border-white/[0.06] px-3 py-1.5 rounded-full">
+                      <span className="flex-shrink-0 font-dm-sans text-xs text-[#EDEDED]/35 bg-white/[0.04] border border-white/[0.06] px-3 py-1.5 rounded-full">
                         {exp.period}
                       </span>
                     </div>
 
                     {exp.description ? (
-                      <p className="font-dm-sans text-sm text-[#F0F0F0]/55 leading-relaxed mb-4">
+                      <p className="font-dm-sans text-sm text-[#EDEDED]/55 leading-relaxed mb-4">
                         {exp.description}
                       </p>
                     ) : null}
@@ -205,7 +205,7 @@ export default function Experience() {
                         {exp.bullets.map((bullet, bi) => (
                           <li key={bi} className="flex items-start gap-3">
                             <span className="mt-[7px] flex-shrink-0 w-1 h-1 rounded-full bg-[#00D4FF]/50" />
-                            <p className="font-dm-sans text-sm text-[#F0F0F0]/55 leading-relaxed">
+                            <p className="font-dm-sans text-sm text-[#EDEDED]/55 leading-relaxed">
                               {bullet}
                             </p>
                           </li>

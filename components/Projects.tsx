@@ -45,7 +45,7 @@ function MetricChip({ value, label, delay = 0, gold = false }: MetricChipProps) 
       >
         {!gold ? <span className="text-gradient">{value}</span> : value}
       </span>
-      <span className="font-dm-sans text-[11px] text-[#F0F0F0]/45 leading-tight px-1">{label}</span>
+      <span className="font-dm-sans text-[11px] text-[#EDEDED]/45 leading-tight px-1">{label}</span>
     </motion.div>
   )
 }
@@ -142,7 +142,7 @@ function SportScoutCard() {
           <div className="grid md:grid-cols-5 gap-8 md:gap-10 items-start">
             {/* Left: Content (3/5) */}
             <div className="md:col-span-3">
-              <h3 className="font-syne text-3xl md:text-4xl font-bold text-[#F0F0F0] mb-4 leading-tight">
+              <h3 className="font-syne text-3xl md:text-4xl font-bold text-[#EDEDED] mb-4 leading-tight">
                 Spore Scout
               </h3>
 
@@ -165,7 +165,7 @@ function SportScoutCard() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -4 }}
                     transition={{ duration: 0.2 }}
-                    className="font-dm-sans text-[#F0F0F0]/65 leading-relaxed"
+                    className="font-dm-sans text-[#EDEDED]/65 leading-relaxed"
                   >
                     {hovered
                       ? 'Detects 8 crop diseases using a quantised ResNet CNN (INT8) with under 150ms inference. Fused with real-time ESP32 Bluetooth sensor data — soil humidity, temperature, and light. Built for farmers with zero internet connectivity. Competed against 200+ teams to take first place.'
@@ -270,7 +270,7 @@ function QuickFixCard() {
           <div className="grid md:grid-cols-5 gap-8 items-start">
             {/* Left: Content (3/5) */}
             <div className="md:col-span-3">
-              <h3 className="font-syne text-2xl md:text-3xl font-bold text-[#F0F0F0] mb-4 leading-tight">
+              <h3 className="font-syne text-2xl md:text-3xl font-bold text-[#EDEDED] mb-4 leading-tight">
                 QuickFix QR
               </h3>
 
@@ -293,7 +293,7 @@ function QuickFixCard() {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -4 }}
                     transition={{ duration: 0.2 }}
-                    className="font-dm-sans text-sm text-[#F0F0F0]/60 leading-relaxed"
+                    className="font-dm-sans text-sm text-[#EDEDED]/60 leading-relaxed"
                   >
                     {hovered
                       ? 'Serverless event-driven pipeline with sub-200ms end-to-end latency. Supabase real-time subscriptions push live updates to a Leaflet.js campus map. Scan a QR code, submit a fault — it appears as a live map pin for campus operations staff instantly.'

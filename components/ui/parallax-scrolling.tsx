@@ -158,7 +158,7 @@ export function ParallaxComponent() {
                 fontSize: 'clamp(3rem, 9vw, 7.5rem)',
                 fontWeight: 700,
                 lineHeight: 0.93,
-                background: 'linear-gradient(135deg, #F0F0F0 0%, rgba(240,240,240,0.55) 100%)',
+                background: 'linear-gradient(135deg, #EDEDED 0%, rgba(237,237,237,0.55) 100%)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
                 backgroundClip: 'text',

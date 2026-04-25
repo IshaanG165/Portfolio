@@ -84,7 +84,7 @@ export default function Skills() {
                     whileInView={{ opacity: 1, scale: 1 }}
                     viewport={{ once: true }}
                     transition={{ delay: gi * 0.08 + si * 0.04, duration: 0.4, ease: 'easeOut' }}
-                    className="font-dm-sans text-sm text-[#F0F0F0]/75 bg-white/[0.05] border border-white/[0.09] px-3.5 py-1.5 rounded-lg cursor-default transition-all duration-200 hover:text-[#00D4FF] hover:border-[#00D4FF]/30 hover:bg-[#00D4FF]/[0.07]"
+                    className="font-dm-sans text-sm text-[#EDEDED]/75 bg-white/[0.05] border border-white/[0.09] px-3.5 py-1.5 rounded-lg cursor-default transition-all duration-200 hover:text-[#00D4FF] hover:border-[#00D4FF]/30 hover:bg-[#00D4FF]/[0.07]"
                   >
                     {skill}
                   </motion.span>
