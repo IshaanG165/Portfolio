@@ -7,6 +7,7 @@ import Skills from '@/components/Skills'
 import Contact from '@/components/Contact'
 import CustomCursor from '@/components/CustomCursor'
 import FlowFieldCanvas from '@/components/FlowFieldCanvas'
+import ScrollProgress from '@/components/ScrollProgress'
 import { ParallaxComponent } from '@/components/ui/parallax-scrolling'
 
 function SectionDivider() {
@@ -23,6 +24,7 @@ export default function Home() {
   return (
     <main className="relative overflow-x-hidden">
       <FlowFieldCanvas />
+      <ScrollProgress />
       <CustomCursor />
       <Navbar />
       <Hero />

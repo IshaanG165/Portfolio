@@ -149,7 +149,7 @@ export function ParallaxComponent() {
                 fontWeight: 500,
               }}
             >
-              02 — Projects
+              02 · Projects
             </p>
 
             <h2

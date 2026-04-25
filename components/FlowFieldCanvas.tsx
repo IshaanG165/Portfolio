@@ -103,18 +103,25 @@ export default function FlowFieldCanvas() {
     resize()
     window.addEventListener('resize', resize)
 
-    const COUNT = W < 768 ? 480 : 950
+    // Respect prefers-reduced-motion — static background, no animation
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reducedMotion) {
+      return () => window.removeEventListener('resize', resize)
+    }
+
+    const isMobile = W < 768
+    const COUNT = isMobile ? 380 : 750
 
     function spawn(): Particle {
       const x = Math.random() * W
       const y = Math.random() * H
       return {
         x, y, px: x, py: y,
-        speed: 0.4 + Math.random() * 0.65,
+        speed: 0.38 + Math.random() * 0.55,
         life: Math.random() * 300,
         maxLife: 220 + Math.random() * 300,
         ci: Math.floor(Math.random() * PALETTE.length),
-        lw: 0.45 + Math.random() * 0.65,
+        lw: 0.45 + Math.random() * 0.6,
       }
     }
 
@@ -123,56 +130,60 @@ export default function FlowFieldCanvas() {
     const SCALE = 0.0017
     let t = 0
     let raf: number
+    let paused = false
 
     c.lineCap = 'round'
 
     function draw() {
-      // Slow fade — controls trail length
-      c.fillStyle = `rgba(${BG}, 0.016)`
-      c.fillRect(0, 0, W, H)
+      if (!paused) {
+        c.fillStyle = `rgba(${BG}, 0.016)`
+        c.fillRect(0, 0, W, H)
 
-      t += 0.001
+        t += 0.001
 
-      for (const p of pts) {
-        // Two-octave noise angle for organic complexity
-        const nx = p.x * SCALE
-        const ny = p.y * SCALE
-        const angle =
-          perlin2(nx + t * 0.28, ny + t * 0.14) * Math.PI * 4.5 +
-          perlin2(nx * 1.9 + 80 + t * 0.09, ny * 1.9 + 80) * Math.PI * 0.9
+        for (const p of pts) {
+          const nx = p.x * SCALE
+          const ny = p.y * SCALE
+          const angle =
+            perlin2(nx + t * 0.28, ny + t * 0.14) * Math.PI * 4.5 +
+            perlin2(nx * 1.9 + 80 + t * 0.09, ny * 1.9 + 80) * Math.PI * 0.9
 
-        p.px = p.x
-        p.py = p.y
-        p.x += Math.cos(angle) * p.speed
-        p.y += Math.sin(angle) * p.speed
-        p.life++
+          p.px = p.x
+          p.py = p.y
+          p.x += Math.cos(angle) * p.speed
+          p.y += Math.sin(angle) * p.speed
+          p.life++
 
-        if (p.x < -4 || p.x > W + 4 || p.y < -4 || p.y > H + 4 || p.life > p.maxLife) {
-          Object.assign(p, spawn(), { life: 0 })
-          continue
+          if (p.x < -4 || p.x > W + 4 || p.y < -4 || p.y > H + 4 || p.life > p.maxLife) {
+            Object.assign(p, spawn(), { life: 0 })
+            continue
+          }
+
+          const lr = p.life / p.maxLife
+          const alpha = Math.sin(lr * Math.PI) * 0.52
+
+          const [r, g, b] = PALETTE[p.ci]
+          c.beginPath()
+          c.moveTo(p.px, p.py)
+          c.lineTo(p.x, p.y)
+          c.strokeStyle = `rgba(${r},${g},${b},${alpha})`
+          c.lineWidth = p.lw
+          c.stroke()
         }
-
-        // Fade in, sustain, fade out over particle lifetime
-        const lr = p.life / p.maxLife
-        const alpha = Math.sin(lr * Math.PI) * 0.52
-
-        const [r, g, b] = PALETTE[p.ci]
-        c.beginPath()
-        c.moveTo(p.px, p.py)
-        c.lineTo(p.x, p.y)
-        c.strokeStyle = `rgba(${r},${g},${b},${alpha})`
-        c.lineWidth = p.lw
-        c.stroke()
       }
 
       raf = requestAnimationFrame(draw)
     }
+
+    const onVisibility = () => { paused = document.hidden }
+    document.addEventListener('visibilitychange', onVisibility)
 
     draw()
 
     return () => {
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', resize)
+      document.removeEventListener('visibilitychange', onVisibility)
     }
   }, [])
 

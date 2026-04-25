@@ -93,7 +93,7 @@ export default function About() {
             className="relative z-10"
           >
             <p className="font-mono text-[#00D4FF] text-[11px] tracking-[0.32em] uppercase mb-5 font-medium">
-              01 — About
+              01 · About
             </p>
             <h2 className="font-syne text-4xl md:text-5xl lg:text-6xl font-bold text-[#EDEDED] leading-[0.95]">
               Who I Am
@@ -113,12 +113,12 @@ export default function About() {
           >
             <div className="space-y-6 mb-10">
               <p className="font-dm-sans text-[#EDEDED]/80 text-base md:text-[1.05rem] leading-[1.9]">
-                Second year at the University of Sydney —{' '}
-                <span className="text-[#EDEDED] font-semibold">Dalyell Scholar</span>,
-                HD WAM, and named to the{' '}
+                <span className="text-[#EDEDED] font-semibold">Dalyell Scholar</span>{' '}
+                studying{' '}
+                <span className="text-[#EDEDED] font-semibold">Advanced Computing @ USYD</span>
+                {' '}— HD WAM, named to the{' '}
                 <span className="text-[#EDEDED] font-semibold">UG High Honour Roll</span>{' '}
-                by the School of Computer Science. I study within the Bachelor of Advanced
-                Computing, one of Australia&apos;s most selective CS programs, ranking in the{' '}
+                by the School of Computer Science, and ranked in the{' '}
                 <span className="text-[#00D4FF] font-medium">top 2.6% of my cohort</span>{' '}
                 across courses with 800–1,200+ students.
               </p>

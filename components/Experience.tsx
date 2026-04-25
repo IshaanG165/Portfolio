@@ -105,7 +105,7 @@ export default function Experience() {
             className="relative z-10"
           >
             <p className="font-mono text-[#00D4FF] text-[11px] tracking-[0.32em] uppercase mb-5 font-medium">
-              03 — Experience
+              03 · Experience
             </p>
             <h2 className="font-syne text-4xl md:text-5xl lg:text-6xl font-bold text-[#EDEDED] leading-[0.95]">
               Where I&apos;ve Been

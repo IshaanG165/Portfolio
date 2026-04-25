@@ -72,7 +72,7 @@ export default function Contact() {
             className="relative z-10"
           >
             <p className="font-mono text-[#00D4FF] text-[11px] tracking-[0.32em] uppercase mb-5 font-medium">
-              05 — Contact
+              05 · Contact
             </p>
             <h2
               className="font-syne font-bold text-[#EDEDED] leading-[0.9]"

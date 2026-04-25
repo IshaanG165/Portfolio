@@ -54,12 +54,22 @@ export default function Navbar() {
               <li key={link}>
                 <button
                   onClick={() => scrollTo(link)}
-                  className="font-dm-sans text-sm text-[#F0F0F0]/60 hover:text-[#00D4FF] transition-colors duration-200 tracking-wide"
+                  className="font-dm-sans text-sm text-[#EDEDED]/55 hover:text-[#00D4FF] transition-colors duration-200 tracking-wide"
                 >
                   {link}
                 </button>
               </li>
             ))}
+            <li>
+              <a
+                href="/resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-dm-sans text-xs font-medium px-3.5 py-1.5 rounded-full border border-[#00D4FF]/30 text-[#00D4FF]/80 hover:border-[#00D4FF]/70 hover:text-[#00D4FF] hover:bg-[#00D4FF]/[0.07] transition-all duration-200 tracking-wide"
+              >
+                Resume ↗
+              </a>
+            </li>
           </ul>
 
           <button

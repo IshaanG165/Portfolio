@@ -17,20 +17,38 @@ const dmSans = DM_Sans({
 })
 
 export const metadata: Metadata = {
-  title: 'Ishaan Gulati — Software Engineer',
+  title: 'Ishaan Gulati — Advanced Computing @ USYD',
   description:
-    'Second-year CS student at the University of Sydney (Advanced Computing). Building fast, elegant software at the intersection of systems and product.',
-  keywords: ['Ishaan Gulati', 'Software Engineer', 'University of Sydney', 'Computer Science', 'Portfolio'],
+    'Dalyell Scholar · UG High Honour Roll · Hackathon Winner. Building fast, precise software at the intersection of systems and product.',
+  keywords: [
+    'Ishaan Gulati',
+    'Software Engineer',
+    'University of Sydney',
+    'Advanced Computing',
+    'Dalyell Scholar',
+    'Computer Science',
+    'Portfolio',
+    'USYD',
+  ],
   authors: [{ name: 'Ishaan Gulati' }],
+  metadataBase: new URL('https://ishaangulati.dev'),
   openGraph: {
-    title: 'Ishaan Gulati — Software Engineer',
-    description: 'CS @ UoS · Builder · Dalyell Scholar',
+    title: 'Ishaan Gulati — Advanced Computing @ USYD',
+    description: 'Dalyell Scholar · UG High Honour Roll · Hackathon Winner',
     type: 'website',
+    url: 'https://ishaangulati.dev',
+    siteName: 'Ishaan Gulati',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Ishaan Gulati — Software Engineer',
-    description: 'CS @ UoS · Builder · Dalyell Scholar',
+    title: 'Ishaan Gulati — Advanced Computing @ USYD',
+    description: 'Dalyell Scholar · UG High Honour Roll · Hackathon Winner',
+    creator: '@ishaangulati',
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
   },
 }
 

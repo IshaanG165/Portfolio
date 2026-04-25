@@ -78,8 +78,8 @@ export default function Hero() {
           transition={{ delay: 0.2, duration: 0.8, ease: 'easeOut' }}
           className="flex items-center justify-center gap-4 mb-7"
         >
-          <span className="inline-flex items-center gap-2 font-dm-sans text-xs text-[#F0F0F0]/45 tracking-widest uppercase">
-            CS @ University of Sydney
+          <span className="inline-flex items-center gap-2 font-dm-sans text-xs text-[#EDEDED]/45 tracking-widest uppercase">
+            Advanced Computing @ USYD
           </span>
           <span className="w-px h-3 bg-white/20" />
           <span className="inline-flex items-center gap-1.5 font-dm-sans text-xs text-emerald-400/80 tracking-wide">

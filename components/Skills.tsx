@@ -52,7 +52,7 @@ export default function Skills() {
             className="relative z-10"
           >
             <p className="font-mono text-[#00D4FF] text-[11px] tracking-[0.32em] uppercase mb-5 font-medium">
-              04 — Skills
+              04 · Skills
             </p>
             <h2 className="font-syne text-4xl md:text-5xl lg:text-6xl font-bold text-[#EDEDED] leading-[0.95]">
               The Stack
