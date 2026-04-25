@@ -5,7 +5,7 @@ import ParticleCanvas from './ParticleCanvas'
 import { useTypewriter } from '@/hooks/useTypewriter'
 
 const TYPEWRITER_STRINGS = [
-  'Software Engineer',
+  'Math Enthusiast',
   'Hackathon Winner',
   'Builder',
   'CS @ University of Sydney',

@@ -8,9 +8,11 @@ interface ExperienceItem {
   company: string
   period: string
   description: string
+  bullets?: string[]
   type: 'work' | 'club'
   tags?: string[]
   highlight?: string
+  location?: string
 }
 
 const EXPERIENCES: ExperienceItem[] = [
@@ -36,20 +38,27 @@ const EXPERIENCES: ExperienceItem[] = [
     title: 'Private Tutor',
     company: 'NextStep Academy',
     period: 'Apr 2026 – Present',
-    description:
-      'Teaching HSC and first-year university students in Mathematics and Computer Science. Breaking complex topics — algorithms, calculus, data structures, proof techniques — into clear mental models. Tracking individual progress and adapting sessions to each student\'s learning style.',
+    description: '',
+    bullets: [
+      'Teaching and mentoring 4+ students across Years 8–12 in Chemistry and Mathematics, tailoring structured lessons and diagnosing individual knowledge gaps to accelerate concept mastery and exam readiness.',
+      'Designed and curated 20+ targeted problem sets using NSW past paper questions, worked examples, and revision resources aligned with the latest NSW syllabus for efficient practice and conceptual understanding.',
+    ],
     type: 'work',
-    tags: ['Mathematics', 'Computer Science', 'HSC', 'University'],
+    tags: ['Mathematics', 'Chemistry', 'Years 8–12', 'NSW Syllabus'],
     highlight: 'Teaching',
   },
   {
     title: 'Software Engineering Intern',
     company: 'Vidit Healthcare',
     period: 'Aug – Sep 2023',
-    description:
-      'Built and deployed full-stack features for a healthcare management platform — spanning frontend UI, REST API design, and database integration — contributing across the entire product lifecycle.',
+    location: 'Haryana, India',
+    description: '',
+    bullets: [
+      'Automated data ingestion and cleaning pipelines (Python, Pandas, PostgreSQL), cutting manual processing time by 40% across 3 operational workflows and eliminating a recurring class of data-entry errors.',
+      'Built a live operations dashboard (PostgreSQL + Google Sheets API) enabling same-day resource and staffing decisions for clinical teams, replacing daily ad-hoc manual reporting.',
+    ],
     type: 'work',
-    tags: ['Full Stack', 'REST API', 'Healthcare'],
+    tags: ['Python', 'Pandas', 'PostgreSQL', 'Google Sheets API'],
   },
 ]
 
@@ -139,22 +148,28 @@ export default function Experience() {
                         : 'rgba(255,255,255,0.08)'
                     }}
                   >
-                    <div className="flex flex-wrap items-start justify-between gap-3 mb-3">
-                      <div className="flex items-start gap-3">
-                        <div>
-                          <div className="flex items-center gap-2.5 flex-wrap">
-                            <h3 className="font-syne text-lg md:text-xl font-semibold text-[#F0F0F0] leading-snug">
-                              {exp.title}
-                            </h3>
-                            {isTutor && (
-                              <span className="inline-flex items-center gap-1 font-dm-sans text-[10px] tracking-widest uppercase px-2.5 py-1 rounded-full font-medium text-[#00D4FF] border border-[#00D4FF]/25 bg-[#00D4FF]/[0.08]">
-                                Active
-                              </span>
-                            )}
-                          </div>
-                          <p className="font-dm-sans text-sm font-medium text-[#00D4FF] mt-0.5">
+                    <div className="flex flex-wrap items-start justify-between gap-3 mb-4">
+                      <div>
+                        <div className="flex items-center gap-2.5 flex-wrap">
+                          <h3 className="font-syne text-lg md:text-xl font-semibold text-[#F0F0F0] leading-snug">
+                            {exp.title}
+                          </h3>
+                          {isTutor && (
+                            <span className="inline-flex items-center gap-1 font-dm-sans text-[10px] tracking-widest uppercase px-2.5 py-1 rounded-full font-medium text-[#00D4FF] border border-[#00D4FF]/25 bg-[#00D4FF]/[0.08]">
+                              Active
+                            </span>
+                          )}
+                        </div>
+                        <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                          <p className="font-dm-sans text-sm font-medium text-[#00D4FF]">
                             {exp.company}
                           </p>
+                          {exp.location && (
+                            <>
+                              <span className="text-[#F0F0F0]/20 text-xs">·</span>
+                              <p className="font-dm-sans text-xs text-[#F0F0F0]/35">{exp.location}</p>
+                            </>
+                          )}
                         </div>
                       </div>
 
@@ -163,9 +178,24 @@ export default function Experience() {
                       </span>
                     </div>
 
-                    <p className="font-dm-sans text-sm text-[#F0F0F0]/55 leading-relaxed mb-4">
-                      {exp.description}
-                    </p>
+                    {exp.description ? (
+                      <p className="font-dm-sans text-sm text-[#F0F0F0]/55 leading-relaxed mb-4">
+                        {exp.description}
+                      </p>
+                    ) : null}
+
+                    {exp.bullets && exp.bullets.length > 0 && (
+                      <ul className="space-y-2.5 mb-4">
+                        {exp.bullets.map((bullet, bi) => (
+                          <li key={bi} className="flex items-start gap-3">
+                            <span className="mt-[7px] flex-shrink-0 w-1 h-1 rounded-full bg-[#00D4FF]/50" />
+                            <p className="font-dm-sans text-sm text-[#F0F0F0]/55 leading-relaxed">
+                              {bullet}
+                            </p>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
 
                     {/* Subject / role tags */}
                     {exp.tags && exp.tags.length > 0 && (
