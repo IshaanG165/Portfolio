@@ -346,7 +346,7 @@ export default function Projects() {
           transition={{ duration: 0.7, ease: [0.25, 0.46, 0.45, 0.94] }}
           className="mb-12 md:mb-16"
         >
-          <h2 className="font-syne text-4xl md:text-5xl lg:text-6xl font-bold text-[#F0F0F0]">
+          <h2 className="font-syne text-4xl md:text-5xl lg:text-6xl font-bold text-[#EDEDED] leading-[0.95]">
             What I&apos;ve Built
           </h2>
         </motion.div>

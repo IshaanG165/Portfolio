@@ -82,20 +82,36 @@ export default function Experience() {
   return (
     <section id="experience" className="py-24 md:py-36 px-6">
       <div className="max-w-7xl mx-auto">
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="mb-16 md:mb-20"
-        >
-          <p className="font-dm-sans text-[#00D4FF] text-xs tracking-[0.3em] uppercase mb-4 font-medium">
-            03 — Experience
-          </p>
-          <h2 className="font-syne text-4xl md:text-5xl lg:text-6xl font-bold text-[#F0F0F0]">
-            Where I&apos;ve Been
-          </h2>
-        </motion.div>
+        <div className="relative mb-16 md:mb-20" style={{ overflow: 'clip' }}>
+          <span
+            aria-hidden="true"
+            className="absolute select-none pointer-events-none font-syne font-black"
+            style={{
+              fontSize: 'clamp(9rem, 26vw, 22rem)',
+              top: '-0.1em',
+              left: '-0.06em',
+              lineHeight: 1,
+              color: 'transparent',
+              WebkitTextStroke: '1.5px rgba(255,255,255,0.028)',
+            }}
+          >
+            03
+          </span>
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+            className="relative z-10"
+          >
+            <p className="font-mono text-[#00D4FF] text-[11px] tracking-[0.32em] uppercase mb-5 font-medium">
+              03 — Experience
+            </p>
+            <h2 className="font-syne text-4xl md:text-5xl lg:text-6xl font-bold text-[#EDEDED] leading-[0.95]">
+              Where I&apos;ve Been
+            </h2>
+          </motion.div>
+        </div>
 
         <div ref={ref} className="relative">
           {/* Timeline spine */}

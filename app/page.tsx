@@ -9,6 +9,16 @@ import CustomCursor from '@/components/CustomCursor'
 import FlowFieldCanvas from '@/components/FlowFieldCanvas'
 import { ParallaxComponent } from '@/components/ui/parallax-scrolling'
 
+function SectionDivider() {
+  return (
+    <div className="px-6 py-2">
+      <div className="max-w-7xl mx-auto">
+        <div className="h-px bg-gradient-to-r from-transparent via-white/[0.06] to-transparent" />
+      </div>
+    </div>
+  )
+}
+
 export default function Home() {
   return (
     <main className="relative overflow-x-hidden">
@@ -16,11 +26,15 @@ export default function Home() {
       <CustomCursor />
       <Navbar />
       <Hero />
+      <SectionDivider />
       <About />
       <ParallaxComponent />
       <Projects />
+      <SectionDivider />
       <Experience />
+      <SectionDivider />
       <Skills />
+      <SectionDivider />
       <Contact />
     </main>
   )
