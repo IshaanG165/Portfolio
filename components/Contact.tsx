@@ -95,9 +95,9 @@ export default function Contact() {
             transition={{ delay: 0.25, duration: 0.7 }}
           >
             <p className="font-dm-sans text-[#EDEDED]/55 text-lg leading-[1.85] mb-8 max-w-md">
-              I'm open for internships in Tech. If you want to connect and have a
-              chat about anything whether it be Tech, ideas, mathematics, or just life.
-              Feel free to reach out to me.
+              I&apos;m open for internships in Tech. If you want to connect and have a
+              chat about anything — whether it be Tech, ideas, mathematics, or just life —
+              feel free to reach out.
             </p>
             <div className="flex items-center gap-3">
               <span className="relative flex h-2 w-2">
