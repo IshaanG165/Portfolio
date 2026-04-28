@@ -4,7 +4,6 @@ import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import ParticleCanvas from './ParticleCanvas'
 import { useTypewriter } from '@/hooks/useTypewriter'
-import { TextScramble } from '@/components/ui/text-scramble'
 
 const TYPEWRITER_STRINGS = [
   'Dalyell Scholar',
@@ -101,15 +100,7 @@ export default function Hero() {
           style={{ fontSize: 'clamp(3.2rem, 10vw, 7.5rem)' }}
         >
           <span className="text-[#EDEDED]">Ishaan </span>
-          <TextScramble
-            as="span"
-            className="shimmer-once"
-            characterSet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            duration={1.2}
-            speed={0.04}
-          >
-            Gulati
-          </TextScramble>
+          <span className="shimmer-once">Gulati</span>
         </motion.h1>
 
         {/* Typewriter */}

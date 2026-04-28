@@ -1,3 +1,4 @@
+import SmoothScroll from '@/components/SmoothScroll'
 import Navbar from '@/components/Navbar'
 import NavDock from '@/components/NavDock'
 import Hero from '@/components/Hero'
@@ -24,6 +25,7 @@ function SectionDivider() {
 export default function Home() {
   return (
     <main className="relative overflow-x-hidden">
+      <SmoothScroll />
       <FlowFieldCanvas />
       <ScrollProgress />
       <CustomCursor />

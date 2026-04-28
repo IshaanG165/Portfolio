@@ -105,10 +105,13 @@ export default function NavDock() {
   }, [])
 
   const scrollTo = (id: string) => {
+    const lenis = (window as Window & { __lenis?: { scrollTo: (t: number | HTMLElement, o?: { offset?: number; duration?: number }) => void } }).__lenis
     if (id === 'hero') {
-      window.scrollTo({ top: 0, behavior: 'smooth' })
+      lenis ? lenis.scrollTo(0, { duration: 1.2 }) : window.scrollTo({ top: 0, behavior: 'smooth' })
     } else {
-      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+      const el = document.getElementById(id)
+      if (!el) return
+      lenis ? lenis.scrollTo(el, { offset: -80, duration: 1.2 }) : el.scrollIntoView({ behavior: 'smooth' })
     }
   }
 

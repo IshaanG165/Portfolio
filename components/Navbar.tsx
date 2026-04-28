@@ -24,11 +24,20 @@ export default function Navbar() {
     return () => { document.body.style.overflow = '' }
   }, [menuOpen])
 
+  type LenisRef = { scrollTo: (t: number | HTMLElement, o?: { offset?: number; duration?: number }) => void }
+
   const scrollTo = (id: string) => {
     setMenuOpen(false)
+    const delay = menuOpen ? 300 : 0
     setTimeout(() => {
-      document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: 'smooth' })
-    }, menuOpen ? 300 : 0)
+      const lenis = (window as Window & { __lenis?: LenisRef }).__lenis
+      const el = document.getElementById(id.toLowerCase())
+      if (lenis && el) {
+        lenis.scrollTo(el, { offset: -80, duration: 1.2 })
+      } else {
+        el?.scrollIntoView({ behavior: 'smooth' })
+      }
+    }, delay)
   }
 
   return (
@@ -42,7 +51,10 @@ export default function Navbar() {
       >
         <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            onClick={() => {
+              const lenis = (window as Window & { __lenis?: { scrollTo: (t: number) => void } }).__lenis
+              lenis ? lenis.scrollTo(0) : window.scrollTo({ top: 0, behavior: 'smooth' })
+            }}
             className="font-syne text-xl font-bold tracking-tight transition-all duration-300"
             aria-label="Scroll to top"
           >
