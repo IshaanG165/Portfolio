@@ -4,6 +4,7 @@ import { useRef } from 'react'
 import { motion } from 'framer-motion'
 import ParticleCanvas from './ParticleCanvas'
 import { useTypewriter } from '@/hooks/useTypewriter'
+import { TextScramble } from '@/components/ui/text-scramble'
 
 const TYPEWRITER_STRINGS = [
   'Dalyell Scholar',
@@ -76,12 +77,12 @@ export default function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8, ease: 'easeOut' }}
-          className="flex items-center justify-center gap-4 mb-7"
+          className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 mb-7"
         >
           <span className="inline-flex items-center gap-2 font-dm-sans text-xs text-[#EDEDED]/45 tracking-widest uppercase">
             Advanced Computing @ USYD
           </span>
-          <span className="w-px h-3 bg-white/20" />
+          <span className="hidden sm:block w-px h-3 bg-white/20" />
           <span className="inline-flex items-center gap-1.5 font-dm-sans text-xs text-emerald-400/80 tracking-wide">
             <span className="relative flex h-1.5 w-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -100,7 +101,15 @@ export default function Hero() {
           style={{ fontSize: 'clamp(3.2rem, 10vw, 7.5rem)' }}
         >
           <span className="text-[#EDEDED]">Ishaan </span>
-          <span className="shimmer-once">Gulati</span>
+          <TextScramble
+            as="span"
+            className="shimmer-once"
+            characterSet="ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            duration={1.2}
+            speed={0.04}
+          >
+            Gulati
+          </TextScramble>
         </motion.h1>
 
         {/* Typewriter */}

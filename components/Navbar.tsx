@@ -49,19 +49,7 @@ export default function Navbar() {
             <span className="text-gradient">IG</span>
           </button>
 
-          <ul className="hidden md:flex items-center gap-8">
-            {NAV_LINKS.map((link) => (
-              <li key={link}>
-                <button
-                  onClick={() => scrollTo(link)}
-                  className="font-dm-sans text-sm text-[#EDEDED]/55 hover:text-[#00D4FF] transition-colors duration-200 tracking-wide"
-                >
-                  {link}
-                </button>
-              </li>
-            ))}
-          </ul>
-
+          {/* Desktop nav replaced by NavDock (top-right) */}
           <button
             className="md:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-lg focus:outline-none"
             onClick={() => setMenuOpen(!menuOpen)}

@@ -21,6 +21,7 @@ const config: Config = {
       animation: {
         'cursor-blink': 'cursorBlink 1s step-end infinite',
         'float': 'float 6s ease-in-out infinite',
+        gradient: 'gradient 8s linear infinite',
       },
       keyframes: {
         cursorBlink: {
@@ -30,6 +31,9 @@ const config: Config = {
         float: {
           '0%, 100%': { transform: 'translateY(0px)' },
           '50%': { transform: 'translateY(-8px)' },
+        },
+        gradient: {
+          to: { backgroundPosition: 'var(--bg-size) 0' },
         },
       },
       backgroundImage: {
