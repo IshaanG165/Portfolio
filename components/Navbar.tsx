@@ -15,29 +15,41 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  // Lock/unlock Lenis (and body overflow as fallback) when mobile menu toggles
   useEffect(() => {
     if (menuOpen) {
       document.body.style.overflow = 'hidden'
+      window.__lenis?.stop()
     } else {
       document.body.style.overflow = ''
+      window.__lenis?.start()
     }
-    return () => { document.body.style.overflow = '' }
+    return () => {
+      document.body.style.overflow = ''
+      window.__lenis?.start()
+    }
   }, [menuOpen])
-
-  type LenisRef = { scrollTo: (t: number | HTMLElement, o?: { offset?: number; duration?: number }) => void }
 
   const scrollTo = (id: string) => {
     setMenuOpen(false)
-    const delay = menuOpen ? 300 : 0
+    const delay = menuOpen ? 320 : 0
     setTimeout(() => {
-      const lenis = (window as Window & { __lenis?: LenisRef }).__lenis
       const el = document.getElementById(id.toLowerCase())
-      if (lenis && el) {
-        lenis.scrollTo(el, { offset: -80, duration: 1.2 })
+      if (!el) return
+      if (window.__lenis) {
+        window.__lenis.scrollTo(el, { offset: -80, duration: 1.2 })
       } else {
-        el?.scrollIntoView({ behavior: 'smooth' })
+        el.scrollIntoView({ behavior: 'smooth' })
       }
     }, delay)
+  }
+
+  const scrollToTop = () => {
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0, { duration: 1.2 })
+    } else {
+      window.scrollTo({ top: 0 })
+    }
   }
 
   return (
@@ -51,38 +63,23 @@ export default function Navbar() {
       >
         <nav className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           <button
-            onClick={() => {
-              const lenis = (window as Window & { __lenis?: { scrollTo: (t: number) => void } }).__lenis
-              lenis ? lenis.scrollTo(0) : window.scrollTo({ top: 0, behavior: 'smooth' })
-            }}
-            className="font-syne text-xl font-bold tracking-tight transition-all duration-300"
+            onClick={scrollToTop}
+            className="font-syne text-xl font-bold tracking-tight"
             aria-label="Scroll to top"
           >
             <span className="text-gradient">IG</span>
           </button>
 
-          {/* Desktop nav replaced by NavDock (top-right) */}
+          {/* Desktop nav replaced by NavDock top-right */}
           <button
             className="md:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-lg focus:outline-none"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle navigation menu"
             aria-expanded={menuOpen}
           >
-            <span
-              className={`block w-5 h-0.5 bg-[#EDEDED] transition-all duration-300 origin-center ${
-                menuOpen ? 'rotate-45 translate-y-2' : ''
-              }`}
-            />
-            <span
-              className={`block w-5 h-0.5 bg-[#EDEDED] transition-all duration-300 ${
-                menuOpen ? 'opacity-0 scale-x-0' : ''
-              }`}
-            />
-            <span
-              className={`block w-5 h-0.5 bg-[#EDEDED] transition-all duration-300 origin-center ${
-                menuOpen ? '-rotate-45 -translate-y-2' : ''
-              }`}
-            />
+            <span className={`block w-5 h-0.5 bg-[#EDEDED] transition-all duration-300 origin-center ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`block w-5 h-0.5 bg-[#EDEDED] transition-all duration-300 ${menuOpen ? 'opacity-0 scale-x-0' : ''}`} />
+            <span className={`block w-5 h-0.5 bg-[#EDEDED] transition-all duration-300 origin-center ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
           </button>
         </nav>
       </header>
@@ -106,7 +103,7 @@ export default function Navbar() {
                 >
                   <button
                     onClick={() => scrollTo(link)}
-                    className="font-syne text-3xl font-semibold text-[#EDEDED]/80 hover:text-[#00D4FF] transition-colors duration-200"
+                    className="font-syne text-3xl font-semibold text-[#EDEDED]/80 hover:text-[#00D4FF] transition-colors duration-200 min-h-[44px] px-4"
                   >
                     {link}
                   </button>

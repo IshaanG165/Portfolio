@@ -15,7 +15,8 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* scroll-behavior handled by Lenis on desktop; auto prevents double-smooth conflict */
+  scroll-behavior: auto;
   scroll-padding-top: 80px;
 }
 

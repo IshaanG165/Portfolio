@@ -20,9 +20,8 @@ export function ParallaxComponent() {
       scrollTrigger: {
         trigger: container,
         start: 'top top',
-        // ends exactly when the sticky element would unstick (half of 200vh)
         end: 'center top',
-        scrub: 0.8,
+        scrub: true,
       },
     })
 
