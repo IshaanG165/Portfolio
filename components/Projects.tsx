@@ -53,21 +53,40 @@ function MetricChip({ value, label, delay = 0, gold = false }: MetricChipProps) 
 /* ── Spore Scout — Featured Full-Width Card ── */
 function SportScoutCard() {
   const [hovered, setHovered] = useState(false)
-  const [tilt, setTilt] = useState({ x: 0, y: 0 })
-  const [spotlight, setSpotlight] = useState({ x: 50, y: 50 })
   const cardRef = useRef<HTMLDivElement>(null)
+  const spotlightRef = useRef<HTMLDivElement>(null)
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
     const nx = (e.clientX - rect.left) / rect.width
     const ny = (e.clientY - rect.top) / rect.height
-    setTilt({ x: (ny - 0.5) * -11, y: (nx - 0.5) * 11 })
-    setSpotlight({ x: nx * 100, y: ny * 100 })
+    if (cardRef.current) {
+      cardRef.current.style.transform = `perspective(1200px) rotateX(${(ny - 0.5) * -11}deg) rotateY(${(nx - 0.5) * 11}deg)`
+      cardRef.current.style.transition = 'border-color 0.25s ease, box-shadow 0.25s ease'
+    }
+    if (spotlightRef.current) {
+      spotlightRef.current.style.background = `radial-gradient(circle at ${nx * 100}% ${ny * 100}%, rgba(251,191,36,0.09) 0%, transparent 55%)`
+    }
+  }
+
+  const handleMouseEnter = () => {
+    setHovered(true)
+    if (cardRef.current) {
+      cardRef.current.style.borderColor = 'rgba(251,191,36,0.45)'
+      cardRef.current.style.boxShadow = '0 0 70px rgba(251,191,36,0.14), 0 24px 48px rgba(0,0,0,0.4)'
+    }
+    if (spotlightRef.current) spotlightRef.current.style.opacity = '1'
   }
 
   const handleMouseLeave = () => {
     setHovered(false)
-    setTilt({ x: 0, y: 0 })
+    if (cardRef.current) {
+      cardRef.current.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)'
+      cardRef.current.style.transition = 'transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.25s ease, box-shadow 0.25s ease'
+      cardRef.current.style.borderColor = 'rgba(251,191,36,0.18)'
+      cardRef.current.style.boxShadow = '0 4px 24px rgba(0,0,0,0.25)'
+    }
+    if (spotlightRef.current) spotlightRef.current.style.opacity = '0'
   }
 
   return (
@@ -81,30 +100,27 @@ function SportScoutCard() {
         ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        onMouseEnter={() => setHovered(true)}
+        onMouseEnter={handleMouseEnter}
         className="relative overflow-hidden rounded-2xl"
         style={{
           background: 'rgba(255,255,255,0.04)',
           backdropFilter: 'blur(12px)',
-          border: hovered ? '1px solid rgba(251,191,36,0.45)' : '1px solid rgba(251,191,36,0.18)',
-          boxShadow: hovered
-            ? '0 0 70px rgba(251,191,36,0.14), 0 24px 48px rgba(0,0,0,0.4)'
-            : '0 4px 24px rgba(0,0,0,0.25)',
-          transform: `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-          transition: hovered
-            ? 'border-color 0.25s ease, box-shadow 0.25s ease'
-            : 'transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.25s ease, box-shadow 0.25s ease',
+          border: '1px solid rgba(251,191,36,0.18)',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.25)',
+          transform: 'perspective(1200px) rotateX(0deg) rotateY(0deg)',
+          transition: 'transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.25s ease, box-shadow 0.25s ease',
           willChange: 'transform',
         }}
       >
         {/* Mouse spotlight */}
         <div
+          ref={spotlightRef}
           style={{
             position: 'absolute',
             inset: 0,
             borderRadius: 'inherit',
-            background: `radial-gradient(circle at ${spotlight.x}% ${spotlight.y}%, rgba(251,191,36,0.09) 0%, transparent 55%)`,
-            opacity: hovered ? 1 : 0,
+            background: 'radial-gradient(circle at 50% 50%, rgba(251,191,36,0.09) 0%, transparent 55%)',
+            opacity: 0,
             transition: 'opacity 0.35s ease',
             pointerEvents: 'none',
             zIndex: 0,
@@ -210,20 +226,40 @@ function SportScoutCard() {
 /* ── QuickFix QR ── */
 function QuickFixCard() {
   const [hovered, setHovered] = useState(false)
-  const [tilt, setTilt] = useState({ x: 0, y: 0 })
-  const [spotlight, setSpotlight] = useState({ x: 50, y: 50 })
+  const cardRef = useRef<HTMLDivElement>(null)
+  const spotlightRef = useRef<HTMLDivElement>(null)
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const rect = e.currentTarget.getBoundingClientRect()
     const nx = (e.clientX - rect.left) / rect.width
     const ny = (e.clientY - rect.top) / rect.height
-    setTilt({ x: (ny - 0.5) * -10, y: (nx - 0.5) * 10 })
-    setSpotlight({ x: nx * 100, y: ny * 100 })
+    if (cardRef.current) {
+      cardRef.current.style.transform = `perspective(1200px) rotateX(${(ny - 0.5) * -10}deg) rotateY(${(nx - 0.5) * 10}deg)`
+      cardRef.current.style.transition = 'border-color 0.25s ease, box-shadow 0.25s ease'
+    }
+    if (spotlightRef.current) {
+      spotlightRef.current.style.background = `radial-gradient(circle at ${nx * 100}% ${ny * 100}%, rgba(0,212,255,0.07) 0%, transparent 55%)`
+    }
+  }
+
+  const handleMouseEnter = () => {
+    setHovered(true)
+    if (cardRef.current) {
+      cardRef.current.style.borderColor = 'rgba(0,212,255,0.4)'
+      cardRef.current.style.boxShadow = '0 0 55px rgba(0,212,255,0.12), 0 20px 40px rgba(0,0,0,0.35)'
+    }
+    if (spotlightRef.current) spotlightRef.current.style.opacity = '1'
   }
 
   const handleMouseLeave = () => {
     setHovered(false)
-    setTilt({ x: 0, y: 0 })
+    if (cardRef.current) {
+      cardRef.current.style.transform = 'perspective(1200px) rotateX(0deg) rotateY(0deg)'
+      cardRef.current.style.transition = 'transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.25s ease, box-shadow 0.25s ease'
+      cardRef.current.style.borderColor = 'rgba(255,255,255,0.08)'
+      cardRef.current.style.boxShadow = '0 4px 20px rgba(0,0,0,0.2)'
+    }
+    if (spotlightRef.current) spotlightRef.current.style.opacity = '0'
   }
 
   return (
@@ -234,32 +270,30 @@ function QuickFixCard() {
       transition={{ delay: 0.15, duration: 0.85, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       <div
+        ref={cardRef}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        onMouseEnter={() => setHovered(true)}
+        onMouseEnter={handleMouseEnter}
         className="relative overflow-hidden rounded-2xl"
         style={{
           background: 'rgba(255,255,255,0.04)',
           backdropFilter: 'blur(12px)',
-          border: hovered ? '1px solid rgba(0,212,255,0.4)' : '1px solid rgba(255,255,255,0.08)',
-          boxShadow: hovered
-            ? '0 0 55px rgba(0,212,255,0.12), 0 20px 40px rgba(0,0,0,0.35)'
-            : '0 4px 20px rgba(0,0,0,0.2)',
-          transform: `perspective(1200px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg)`,
-          transition: hovered
-            ? 'border-color 0.25s ease, box-shadow 0.25s ease'
-            : 'transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.25s ease, box-shadow 0.25s ease',
+          border: '1px solid rgba(255,255,255,0.08)',
+          boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+          transform: 'perspective(1200px) rotateX(0deg) rotateY(0deg)',
+          transition: 'transform 0.75s cubic-bezier(0.25, 0.46, 0.45, 0.94), border-color 0.25s ease, box-shadow 0.25s ease',
           willChange: 'transform',
         }}
       >
         {/* Mouse spotlight */}
         <div
+          ref={spotlightRef}
           style={{
             position: 'absolute',
             inset: 0,
             borderRadius: 'inherit',
-            background: `radial-gradient(circle at ${spotlight.x}% ${spotlight.y}%, rgba(0,212,255,0.07) 0%, transparent 55%)`,
-            opacity: hovered ? 1 : 0,
+            background: 'radial-gradient(circle at 50% 50%, rgba(0,212,255,0.07) 0%, transparent 55%)',
+            opacity: 0,
             transition: 'opacity 0.35s ease',
             pointerEvents: 'none',
             zIndex: 0,

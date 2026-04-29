@@ -73,12 +73,12 @@ const BASE = 32
 const HOVER_SELF = 46
 const HOVER_NEIGHBOR = 38
 
-function getSize(index: number, hovered: number | null): number {
-  if (hovered === null) return BASE
+function getScale(index: number, hovered: number | null): number {
+  if (hovered === null) return 1
   const d = Math.abs(index - hovered)
-  if (d === 0) return HOVER_SELF
-  if (d === 1) return HOVER_NEIGHBOR
-  return BASE
+  if (d === 0) return HOVER_SELF / BASE
+  if (d === 1) return HOVER_NEIGHBOR / BASE
+  return 1
 }
 
 export default function NavDock() {
@@ -130,7 +130,7 @@ export default function NavDock() {
       }}
     >
       {NAV_ITEMS.map((item, i) => {
-        const size = getSize(i, hovered)
+        const scale = getScale(i, hovered)
         const isActive = activeId === item.id
         const isLit = isActive || hovered === i
 
@@ -143,10 +143,12 @@ export default function NavDock() {
               onClick={() => scrollTo(item.id)}
               onMouseEnter={() => { setHovered(i); setTooltip(i) }}
               onMouseLeave={() => { setHovered(null); setTooltip(null) }}
-              animate={{ width: size, height: size }}
+              animate={{ scale }}
               transition={{ type: 'spring', stiffness: 380, damping: 22, mass: 0.75 }}
               aria-label={item.label}
               style={{
+                width: BASE,
+                height: BASE,
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center',
@@ -157,7 +159,7 @@ export default function NavDock() {
                 background: isLit ? 'rgba(0, 200, 255, 0.1)' : 'transparent',
                 color: isLit ? '#00c8ff' : 'rgba(237, 237, 237, 0.28)',
                 transition: 'background 0.2s ease, color 0.2s ease',
-                willChange: 'width, height',
+                willChange: 'transform',
                 padding: 0,
               }}
             >

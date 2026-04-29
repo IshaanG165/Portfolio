@@ -49,7 +49,24 @@ export default function ParticleCanvas() {
     const MAX_SPEED = 0.7
     const MOUSE_RADIUS = 90
 
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    const isTouch = window.matchMedia('(pointer: coarse)').matches
+    if (reducedMotion || isTouch) {
+      return () => {
+        window.removeEventListener('resize', resize)
+        window.removeEventListener('mousemove', onMouseMove)
+      }
+    }
+
+    let paused = false
+    const onVisibility = () => { paused = document.hidden }
+    document.addEventListener('visibilitychange', onVisibility)
+
     const draw = () => {
+      if (paused) {
+        rafRef.current = requestAnimationFrame(draw)
+        return
+      }
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       const particles = particlesRef.current
       const { x: mx, y: my } = mouseRef.current
@@ -113,6 +130,7 @@ export default function ParticleCanvas() {
     return () => {
       window.removeEventListener('resize', resize)
       window.removeEventListener('mousemove', onMouseMove)
+      document.removeEventListener('visibilitychange', onVisibility)
       cancelAnimationFrame(rafRef.current)
     }
   }, [])

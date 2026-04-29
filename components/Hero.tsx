@@ -26,7 +26,13 @@ export default function Hero() {
   const secondaryRef = useRef<HTMLButtonElement>(null)
 
   const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+    const el = document.getElementById(id)
+    if (!el) return
+    if (window.__lenis) {
+      window.__lenis.scrollTo(el, { offset: -80, duration: 1.2 })
+    } else {
+      el.scrollIntoView({ behavior: 'smooth' })
+    }
   }
 
   const applyMagnetic = (

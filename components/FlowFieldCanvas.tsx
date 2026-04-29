@@ -110,7 +110,9 @@ export default function FlowFieldCanvas() {
     }
 
     const isMobile = W < 768
-    const COUNT = isMobile ? 380 : 750
+    const cores = navigator.hardwareConcurrency || 4
+    const lowEnd = cores <= 2
+    const COUNT = isMobile ? (lowEnd ? 200 : 380) : (lowEnd ? 400 : 750)
 
     function spawn(): Particle {
       const x = Math.random() * W
