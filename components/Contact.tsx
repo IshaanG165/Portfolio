@@ -166,14 +166,30 @@ export default function Contact() {
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : {}}
           transition={{ delay: 0.8, duration: 1 }}
-          className="mt-24 pt-8 border-t border-white/[0.04] flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4"
+          className="mt-24 pt-8 border-t border-white/[0.04]"
         >
-          <p className="font-mono text-[10px] text-[#EDEDED]/15 tracking-wide">
-            Ishaan Gulati · ishaangulati.dev
-          </p>
-          <p className="font-mono text-[10px] text-[#EDEDED]/15 tracking-wide">
-            Next.js · Tailwind · Framer Motion · Vercel
-          </p>
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
+            <div className="flex flex-col gap-1.5">
+              <p className="font-mono text-[10px] text-[#EDEDED]/20 tracking-wide">
+                © 2026 Ishaan Gulati
+              </p>
+              <p className="font-mono text-[10px] text-[#EDEDED]/10 tracking-wide">
+                Built with Next.js · Tailwind · Framer Motion · GSAP · Vercel
+              </p>
+            </div>
+
+            <button
+              onClick={() => {
+                window.__lenis
+                  ? window.__lenis.scrollTo(0, { duration: 1.4 })
+                  : window.scrollTo({ top: 0 })
+              }}
+              className="group inline-flex items-center gap-2 font-mono text-[10px] text-[#EDEDED]/20 hover:text-[#00D4FF]/60 tracking-[0.2em] uppercase transition-colors duration-300"
+            >
+              Back to top
+              <span className="inline-block transition-transform duration-300 group-hover:-translate-y-0.5">↑</span>
+            </button>
+          </div>
         </motion.div>
 
       </div>

@@ -201,8 +201,10 @@ export default function NavDock() {
                   style={{
                     position: 'absolute',
                     top: 'calc(100% + 10px)',
-                    left: '50%',
-                    transform: 'translateX(-50%)',
+                    // clamp tooltip so it never overflows right edge of viewport
+                    ...(i >= NAV_ITEMS.length - 2
+                      ? { right: 0, left: 'auto' }
+                      : { left: '50%', transform: 'translateX(-50%)' }),
                     padding: '3px 10px',
                     borderRadius: 999,
                     fontSize: 10,

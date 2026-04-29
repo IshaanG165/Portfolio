@@ -72,7 +72,7 @@ export default function Navbar() {
 
           {/* Desktop nav replaced by NavDock top-right */}
           <button
-            className="md:hidden relative w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-lg focus:outline-none"
+            className="md:hidden relative w-11 h-11 flex flex-col items-center justify-center gap-1.5 rounded-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-[#00D4FF]/50"
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Toggle navigation menu"
             aria-expanded={menuOpen}

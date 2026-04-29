@@ -59,7 +59,7 @@ const STATS: Omit<StatCardProps, 'started'>[] = [
 const CURRENTLY = [
   'Teaching Maths & Chemistry · Years 8–12 at NextStep Academy',
   'Building analytics tooling for SUDATA at USYD',
-  'Open to software engineering internships · 2026–27',
+  'Open to software engineering internships in tech',
 ]
 
 export default function About() {
