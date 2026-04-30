@@ -20,17 +20,23 @@ const EXPERIENCES: ExperienceItem[] = [
     title: 'Technology Subcommittee',
     company: 'SUDATA',
     period: 'Feb 2026 – Present',
-    description:
-      'Building technical infrastructure, data pipelines, and analytics tooling for the Sydney University Data Analytics Society.',
+    description: '',
+    bullets: [
+      'Built and shipped a first-year resource hub and events registration feature (Next.js / React), increasing community page traffic and reducing onboarding friction for new members.',
+      'Prototyping a webhook-driven events calendar that auto-syncs the SUDATA Notion workspace to a public iCal feed, eliminating redundant manual updates.',
+    ],
     type: 'club',
-    tags: ['Data Pipelines', 'Analytics', 'Infrastructure'],
+    tags: ['Next.js', 'React', 'Webhooks', 'Analytics'],
   },
   {
     title: 'Events Subcommittee',
     company: 'SUMS',
     period: 'Dec 2025 – Present',
-    description:
-      'Coordinating and running events for the Sydney University Mathematics Society, including academic competitions and industry networking nights.',
+    description: '',
+    bullets: [
+      'Coordinated logistics and execution of academic and networking events with 50+ attendees, including weekly guest lectures (featuring Eddie Woo) and technical sessions.',
+      'Collaborated with other societies to organise panel events and streamline operations, improving participation and engagement across the student community.',
+    ],
     type: 'club',
     tags: ['Event Management', 'Community'],
   },

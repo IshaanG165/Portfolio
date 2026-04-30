@@ -51,9 +51,9 @@ function StatCard({ value, label, sub, isNumber, prefix = '', started }: StatCar
 
 const STATS: Omit<StatCardProps, 'started'>[] = [
   { value: 'HD',  label: 'WAM',           sub: 'High Distinction average',    isNumber: false, prefix: '' },
-  { value: 21,    label: 'OOP Rank',      sub: '#21 of 822 · top 2.6%',       isNumber: true,  prefix: '#' },
-  { value: 55,    label: 'Prog. Rank',    sub: '#55 of 1,200+ · top 4.6%',    isNumber: true,  prefix: '#' },
-  { value: '1st', label: 'Hackathon',     sub: 'Canva × USYD · 200+ teams',   isNumber: false, prefix: '' },
+  { value: 21,    label: 'OOP Rank',      sub: '#21 of 822 · top 2.6% · INFO1113',       isNumber: true,  prefix: '#' },
+  { value: 55,    label: 'Prog. Rank',    sub: '#55 of 1,200+ · top 4.6% · INFO1110',    isNumber: true,  prefix: '#' },
+  { value: '1st', label: 'Hackathon',     sub: 'Canva × USYD COMM-STEM',   isNumber: false, prefix: '' },
 ]
 
 const CURRENTLY = [
@@ -113,31 +113,27 @@ export default function About() {
           >
             <div className="space-y-6 mb-10">
               <p className="font-dm-sans text-[#EDEDED]/80 text-base md:text-[1.05rem] leading-[1.9]">
-                <span className="text-[#EDEDED] font-semibold">Dalyell Scholar</span>{' '}
-                studying{' '}
-                <span className="text-[#EDEDED] font-semibold">Advanced Computing @ USYD</span>
-                {' '}— HD WAM, named to the{' '}
-                <span className="text-[#EDEDED] font-semibold">UG High Honour Roll</span>{' '}
-                by the School of Computer Science, and ranked in the{' '}
-                <span className="text-[#00D4FF] font-medium">top 2.6% of my cohort</span>{' '}
-                across courses with 800–1,200+ students.
+                Hi I&apos;m Ishaan, a computer science student at USYD pursuing a{' '}
+                <span className="text-[#EDEDED] font-semibold">Bachelor of Advanced Computing</span>.
+                {' '}I build things that close the gap between prototype and production.
+                I believe in fast execution and software that works in the world, not just in demos.
               </p>
 
               <p className="font-dm-sans text-[#EDEDED]/60 text-base md:text-[1.05rem] leading-[1.9]">
-                I build fast, precise software. I&apos;ve shipped an offline-first neural
-                network that detects crop disease at under 150ms on a microcontroller —
-                no cloud, no internet, no excuses — and real-time campus infrastructure
-                where a QR scan becomes a live map pin in under 10 seconds. I think in
-                systems, care about every layer of the stack, and close the gap between
-                prototype and production.
+                I&apos;ve shipped an offline neural network that diagnoses crop disease in{' '}
+                <span className="text-[#00D4FF] font-medium">150ms on a microcontroller</span>
+                {' '} with no cloud, no internet and no excuses. I&apos;ve built systems where a QR
+                scan becomes a live map pin in{' '}
+                <span className="text-[#00D4FF] font-medium">under 10 seconds</span>{' '}
+                helping university campuses. I think in systems, own every layer, and don&apos;t
+                stop at &quot;good enough&quot; if you can climb even more.
               </p>
 
               <p className="font-dm-sans text-[#EDEDED]/42 text-base leading-[1.9]">
-                Beyond engineering: I&apos;m drawn to the elegance of mathematical proofs,
-                I tutor students from Year 8 to HSC in Maths and Chemistry, and I believe
-                the best software is built by people who understand{' '}
-                <em className="not-italic text-[#EDEDED]/55">why</em> the system should
-                exist before they start building it.
+                I also tutor Mathematics up to HSC because of my passion for the subject.
+                I love researching and understanding it similar to technology. I believe
+                in execution: ideas are there, but it&apos;s a matter of who does it better
+                in the world.
               </p>
             </div>
 
@@ -247,7 +243,7 @@ export default function About() {
                 <span className="text-[#EDEDED]/80 font-medium">School of Computer Science Award</span>
                 {' · '}University of Sydney
                 {' · '}
-                Awarded to the highest-performing students in the CS undergraduate cohort — requires a High Distinction WAM sustained across all enrolled courses.
+                Awarded to the highest-performing students in the CS undergraduate cohort — requires a High Distinction WAM sustained across all School of CS enrolled courses.
               </p>
             </div>
 
