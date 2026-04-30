@@ -1,6 +1,6 @@
 # Ishaan Gulati — Portfolio
 
-Personal portfolio for [ishaangulati.dev](https://ishaangulati.dev) — built to be fast, precise, and visually sharp.
+Link: [ishaangulati.dev](https://ishaangulati.dev) — Check it out
 
 ## Tech Stack
 
