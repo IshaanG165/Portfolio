@@ -62,13 +62,14 @@ const PALETTE: [number, number, number][] = [
   [0, 229, 255],   // bright cyan ×1
 ]
 
+const ALPHA_BUCKETS = 8  // alpha quantisation levels for path batching
+
 interface Particle {
   x: number; y: number
   px: number; py: number
   speed: number
   life: number; maxLife: number
   ci: number      // color index
-  lw: number      // line width
 }
 
 const BG = '5, 10, 14'   // rgb for background color
@@ -112,7 +113,8 @@ export default function FlowFieldCanvas() {
     const isMobile = W < 768
     const cores = navigator.hardwareConcurrency || 4
     const lowEnd = cores <= 2
-    const COUNT = isMobile ? (lowEnd ? 200 : 380) : (lowEnd ? 400 : 750)
+    // Halved vs before — 30fps cap + Path2D batching makes this more than sufficient
+    const COUNT = isMobile ? (lowEnd ? 140 : 240) : (lowEnd ? 280 : 480)
 
     function spawn(): Particle {
       const x = Math.random() * W
@@ -123,7 +125,6 @@ export default function FlowFieldCanvas() {
         life: Math.random() * 300,
         maxLife: 220 + Math.random() * 300,
         ci: Math.floor(Math.random() * PALETTE.length),
-        lw: 0.45 + Math.random() * 0.6,
       }
     }
 
@@ -133,54 +134,82 @@ export default function FlowFieldCanvas() {
     let t = 0
     let raf: number
     let paused = false
+    let lastTs = 0
 
     c.lineCap = 'round'
+    c.lineWidth = 0.65
 
-    function draw() {
-      if (!paused) {
-        c.fillStyle = `rgba(${BG}, 0.016)`
-        c.fillRect(0, 0, W, H)
+    // Reuse path group arrays across frames to avoid allocations
+    const paths = new Map<number, Path2D>()
+    const pathColors = new Map<number, string>()
 
-        t += 0.001
+    function draw(ts: number) {
+      raf = requestAnimationFrame(draw)
+      if (paused) return
 
-        for (const p of pts) {
-          const nx = p.x * SCALE
-          const ny = p.y * SCALE
-          const angle =
-            perlin2(nx + t * 0.28, ny + t * 0.14) * Math.PI * 4.5 +
-            perlin2(nx * 1.9 + 80 + t * 0.09, ny * 1.9 + 80) * Math.PI * 0.9
+      // 30fps cap — canvas motion blur trails stay smooth at half frame rate
+      const delta = ts - lastTs
+      if (delta < 28) return
+      lastTs = ts - (delta % 28)
 
-          p.px = p.x
-          p.py = p.y
-          p.x += Math.cos(angle) * p.speed
-          p.y += Math.sin(angle) * p.speed
-          p.life++
+      c.fillStyle = `rgba(${BG}, 0.018)`
+      c.fillRect(0, 0, W, H)
 
-          if (p.x < -4 || p.x > W + 4 || p.y < -4 || p.y > H + 4 || p.life > p.maxLife) {
-            Object.assign(p, spawn(), { life: 0 })
-            continue
-          }
+      // t advances per draw call — 0.002 at 30fps = same visual speed as 0.001 at 60fps
+      t += 0.002
 
-          const lr = p.life / p.maxLife
-          const alpha = Math.sin(lr * Math.PI) * 0.52
+      paths.clear()
 
-          const [r, g, b] = PALETTE[p.ci]
-          c.beginPath()
-          c.moveTo(p.px, p.py)
-          c.lineTo(p.x, p.y)
-          c.strokeStyle = `rgba(${r},${g},${b},${alpha})`
-          c.lineWidth = p.lw
-          c.stroke()
+      for (const p of pts) {
+        const nx = p.x * SCALE
+        const ny = p.y * SCALE
+        const angle =
+          perlin2(nx + t * 0.28, ny + t * 0.14) * Math.PI * 4.5 +
+          perlin2(nx * 1.9 + 80 + t * 0.09, ny * 1.9 + 80) * Math.PI * 0.9
+
+        p.px = p.x
+        p.py = p.y
+        p.x += Math.cos(angle) * p.speed
+        p.y += Math.sin(angle) * p.speed
+        p.life++
+
+        if (p.x < -4 || p.x > W + 4 || p.y < -4 || p.y > H + 4 || p.life > p.maxLife) {
+          Object.assign(p, spawn(), { life: 0 })
+          continue
         }
+
+        const lr = p.life / p.maxLife
+        const alpha = Math.sin(lr * Math.PI) * 0.52
+        if (alpha < 0.015) continue
+
+        // Quantise alpha into buckets so paths with similar alpha can be batched together.
+        // 6 palette colors × 8 buckets = 48 max stroke() calls per frame vs 480+ before.
+        const bucket = Math.min(Math.floor((alpha / 0.52) * ALPHA_BUCKETS), ALPHA_BUCKETS - 1)
+        const key = p.ci * ALPHA_BUCKETS + bucket
+
+        if (!paths.has(key)) {
+          paths.set(key, new Path2D())
+          const [r, g, b] = PALETTE[p.ci]
+          const a = ((bucket + 0.5) / ALPHA_BUCKETS) * 0.52
+          pathColors.set(key, `rgba(${r},${g},${b},${a.toFixed(3)})`)
+        }
+
+        const path = paths.get(key)!
+        path.moveTo(p.px, p.py)
+        path.lineTo(p.x, p.y)
       }
 
-      raf = requestAnimationFrame(draw)
+      // One stroke() call per colour+alpha bucket — massive reduction in canvas API overhead
+      paths.forEach((path, key) => {
+        c.strokeStyle = pathColors.get(key)!
+        c.stroke(path)
+      })
     }
 
     const onVisibility = () => { paused = document.hidden }
     document.addEventListener('visibilitychange', onVisibility)
 
-    draw()
+    raf = requestAnimationFrame(draw)
 
     return () => {
       cancelAnimationFrame(raf)

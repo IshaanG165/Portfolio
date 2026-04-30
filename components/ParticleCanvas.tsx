@@ -24,7 +24,7 @@ export default function ParticleCanvas() {
     if (!ctx) return
 
     const initParticles = () => {
-      const count = Math.min(Math.floor((canvas.width * canvas.height) / 14000), 110)
+      const count = Math.min(Math.floor((canvas.width * canvas.height) / 18000), 75)
       particlesRef.current = Array.from({ length: count }, () => ({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
@@ -59,14 +59,19 @@ export default function ParticleCanvas() {
     }
 
     let paused = false
+    let lastTs = 0
     const onVisibility = () => { paused = document.hidden }
     document.addEventListener('visibilitychange', onVisibility)
 
-    const draw = () => {
-      if (paused) {
-        rafRef.current = requestAnimationFrame(draw)
-        return
-      }
+    const draw = (ts: number) => {
+      rafRef.current = requestAnimationFrame(draw)
+      if (paused) return
+
+      // 30fps cap — reduces load on Windows Chrome without visible quality loss
+      const delta = ts - lastTs
+      if (delta < 28) return
+      lastTs = ts - (delta % 28)
+
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       const particles = particlesRef.current
       const { x: mx, y: my } = mouseRef.current
@@ -119,15 +124,19 @@ export default function ParticleCanvas() {
         }
       }
 
-      rafRef.current = requestAnimationFrame(draw)
     }
 
     resize()
     window.addEventListener('resize', resize)
     window.addEventListener('mousemove', onMouseMove)
-    draw()
+
+    // Delay start so ParticleCanvas doesn't compete with the initial hero animation cascade
+    const startTimer = setTimeout(() => {
+      rafRef.current = requestAnimationFrame(draw)
+    }, 1200)
 
     return () => {
+      clearTimeout(startTimer)
       window.removeEventListener('resize', resize)
       window.removeEventListener('mousemove', onMouseMove)
       document.removeEventListener('visibilitychange', onVisibility)

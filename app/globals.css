@@ -90,6 +90,9 @@ body {
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.08);
+    /* Force GPU compositing on Chrome Windows — prevents software-rendered backdrop-filter */
+    will-change: transform;
+    transform: translateZ(0);
   }
 
   .glass-hover {
